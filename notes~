@@ -1,0 +1,15 @@
+Blog notes:
+
+     You sign up for accounts, everyone who has an account
+
+     First brought to a login/register page.
+
+     If cookie exists - generates homepage
+     	else - generates login page
+
+
+
+Login System
+
+      - registered
+      	- automatically logs you in

@@ -1,0 +1,24 @@
+Blog notes:
+
+     You sign up for accounts, everyone who has an account
+
+     First brought to a login/register page.
+
+     If cookie exists - generates homepage
+     	else - generates login page
+
+	Show your own blog:  site.com/blogPage (redirected to if cookie exists)
+	- POST method has username
+	- GET I guess
+	
+
+	     Links to all other users on the side
+
+	Extension:
+		allow following (extra column in data-table, who am I following)
+		print your own newsfeed
+
+Login System
+
+      - registered
+      	- automatically logs you in
