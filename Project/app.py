@@ -7,7 +7,7 @@ app.secret_key = "secrets"
 @app.route("/") #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def root():
     if "user" in session:#if logged in
-        return render_template('home.html', usr = session["user"])
+        return redirect(url_for('home'))
     else:#if not logged in
         return render_template('login.html')
 
@@ -27,15 +27,20 @@ def register():
         session["user"] = d["userName"]
     return redirect(url_for('home'))
 
-@app.route('/<string:username>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def userPage(username):
+@app.route('/home') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def homePage():
+    return render_template('home.html', username = username)
+
+
+@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def storyPage(storyID, idHash):
     d = request.form
     if "newPost" in request.args:
         # CODE TO PUT FORM INFO INTO DB
         # CODE TO DISPLAY POST
-        return render_template('userPage.html', username = username)
+        return render_template('storyPage.html', username = username)
     else:
-        return render_template('userPage.html', username = username)
+        return render_template('storyPage.html', username = username)
 
 if __name__ == "__main__":
     app.debug = True
