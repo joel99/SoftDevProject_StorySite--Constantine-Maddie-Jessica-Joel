@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Tell Me a Story | Login</title>
+  </head>
+
+  <body>
+    <center><h2>Login or Register</h2>
+      {{ resultmsg }}
+      <form action="/login/" method="POST">
+        Username: <input type="text" name="username" required>
+        <br>
+        Password: <input type="password" name="password" required>
+        <br>
+        <input type="submit" name="button" value="Login">
+        <input type="submit" name="button" value="Register">
+      </form>
+    </center>
+  </body>
+
+</html>
