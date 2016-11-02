@@ -7,14 +7,18 @@
     <div class="toolbar">
       <div id="wrapper">
 	<div class="logo">
-	  <a href="#"><img src="<insert image location>" alt="Login"/></a>
+	  <img src="<insert image location>" alt="Login"/>
 	</div>
+	{% block toolbar %}
 	<div id="menu">
-	  <form >
+	  <form action="/toolbarLoggedIn/">
 	    <input type="submit" value="Library">
 	    <input type="submit" value="Random">
+	    <input type="submit" value="Settings">
+	    <input type="submit" value="Log Out">
 	  </form>
 	</div>
+	{% endblock %}
       </div>
     </div>
 
