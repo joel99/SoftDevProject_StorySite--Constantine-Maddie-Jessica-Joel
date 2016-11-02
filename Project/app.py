@@ -33,9 +33,15 @@ def register():
 def homePage():
     return render_template('home.html', username = username)
 
-@app.route('/search') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#executed by a form
+@app.route('/search', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():
+    d = request.form
+    if len(d["query"]) > 0:
+        render_template("search.html")
+    #render_template()
 
+    
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
 
