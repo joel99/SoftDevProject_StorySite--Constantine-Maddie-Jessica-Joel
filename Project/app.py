@@ -11,21 +11,23 @@ def root():
     else:#if not logged in
         return render_template('login.html')
 
-@app.route("/login") #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route("/login", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def login():
     d = request.form
     if isValidLogin(d["username"], d["pass"]):
         session["user"] = d["username"]
-    return redirect(url_for('root'))
+        return redirect(url_for('home')) #successful login
+    return redirect(url_for('root')) #reload the login form
 
-@app.route("/register") #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route("/register", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def register():
     d = request.form
     if isValidRegister(d["pass1"], d["pass2"], d["username"]):
-        writeToAccountInfo(d)
-        writeToPeople(d)
+        #writeToAccountInfo(d)
+        #writeToPeople(d)
         session["user"] = d["userName"]
-    return redirect(url_for('home'))
+        return redirect(url_for('home'))
+    return redirect(url_for('root'))
 
 @app.route('/home') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def homePage():
