@@ -1,4 +1,4 @@
-import sqlite
+import sqlite3
 
 
 
@@ -8,14 +8,17 @@ import sqlite
 ###We must be given a dictionary with title, timestamp, userid, and editcontent.
 ###Since this is a new story, the mostRecentEditID and EditID are just 1.
 
+##to test:
+x = {"title":"FirstStory","timestamp":"Today", "userID":1, "editcontent":"this is edit content."}
+
 def addStory(d):
     db = sqlite3.connect("DB.db")
     c = db.cursor()
     
-    addTitle = d[title]
-    addTime = d[timestamp]
-    addUser = d[userID]
-    edit = d[editcontent]
+    addTitle = d["title"]
+    addTime = d["timestamp"]
+    addUser = d["userID"]
+    edit = d["editcontent"]
     addMRE = 1
     addEid = 1
 
@@ -23,10 +26,17 @@ def addStory(d):
     
     cmd = "SELECT storyID FROM Stories ORDER BY storyID DESC;"
     sel = c.execute(cmd)
-    addStoryID = 0
+    addStoryID = 1
     for record in sel:
+        print record
         addStoryID = addStoryID + record
         break
+
+    print addTitle
+    print addStoryID
+    print addMRE
+
+
 
     e = "INSERT INTO Stories(%s,%d,%d);"%(addTitle, addStoryID, addMRE)
     c.execute(e)
@@ -37,8 +47,7 @@ def addStory(d):
     db.commit()
     db.close()
 
-    
+addStory(x)
 
-    
-
-    
+def hello():
+    print "hello, this works"
