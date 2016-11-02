@@ -33,6 +33,11 @@ def register():
 def homePage():
     return render_template('home.html', username = username)
 
+@app.route('/search') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def search():
+
+@app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def genLibrary():
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
@@ -43,6 +48,18 @@ def storyPage(storyID, idHash):
         return render_template('storyPage.html', username = username)
     else:
         return render_template('storyPage.html', username = username)
+
+
+@app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def createStory(title, timestamp, usrID, editcontent):
+    
+
+    
+@app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def settings():
+
+
+
 
 if __name__ == "__main__":
     app.debug = True
