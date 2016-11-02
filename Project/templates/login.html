@@ -10,23 +10,47 @@
 	  <a href="#"><img src="<insert image location>" alt="Login"/></a>
 	</div>
 	<div id="menu">
-	  # settings, home
+	  <form >
+	    <input type="submit" value="Library">
+	    <input type="submit" value="Random">
+	  </form>
 	</div>
       </div>
     </div>
 
-    <div id="">
-      <div id="">
+    <div id="parent">
+      <div id="loginbox">
 	<form action="/login/" method="POST">
-	  
+	  <h3>Login</h3>
+	  Username:
 	  <input type="text" name="username" placeholder="Username" required>
 	  <br><br>
+	  Password:
 	  <input type="password" name="password" placeholder="Password" required>
 	  <br><br>
-	  <input type="submit" value="Log In"
+	  <input type="submit" value="Log In">
 	</form>
       </div>
     </div>
+
+    <div id="parent">
+      <div id="registerbox">
+	<form action="/register/" method="POST">
+	  <h3>Register</h3>
+	  Username:
+	  <input type="text" name="username" placeholder="Username" required>
+	  <br><br>
+	  Password:
+	  <input type="password" name="password" placeholder="Password" required>
+	  <br><br>
+	  Confirm Password:
+	  <input type="password" name="checkpass" placeholder="Retype Password" required>
+	  <br><br>
+	  <input type="submit" value="Register">
+	</form>
+      </div>
+    </div>
+
   </body>
 
 </html>
