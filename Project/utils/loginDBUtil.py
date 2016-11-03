@@ -11,7 +11,10 @@ def isValidAccountInfo(uN, hP):
     sel = c.execute(cmd)
     for record in sel:
         if uN == record[0] and hP == record[1]:
+            return True
 
+##def getUserID(uN):
+    
 
 def registerAccountInfo(uN, hP):
     db = sqlite3.connect("../data/DB.db")
@@ -27,10 +30,13 @@ def registerAccountInfo(uN, hP):
     add2AT = "INSERT INTO AccountInfo VALUES (%s,%s,%d);"%(uN,hP,userID)
     c.execute(add2AT)
 
-    storyList = []
+    storyList = "'1,3,4'"
 
     ##FIND STRING FORMATTING FOR LIST
-    add2PT = "INSERT INTO peopleTable VALUES (%d,%b);"%(userID, storyList)
+    add2PT = "INSERT INTO People VALUES (%d,%s);"%(userID, storyList)
+    c.execute(add2PT)
 
     db.commit()
     db.close()
+
+registerAccountInfo("'User2'","'hashedPass2'")
