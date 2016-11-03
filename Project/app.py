@@ -48,18 +48,19 @@ def search():
         
     #render_template()
 
+
+#OTHER PAGES - Maddie
+
+
 @app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def settings():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return 0
-
-    
-#OTHER PAGES - Maddie
+    return render_template("settings.html", user = getUser())
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
-    return 0
+    return 
 
 @app.route('/library/<string:idHash>')#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
@@ -76,7 +77,7 @@ def storyPage(storyID, idHash):
 def createStory(title, timestamp, usrID, editcontent):
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return 0
+    return 
 
 #HELPERS--------------------------------------
 def isLoggedIn():
