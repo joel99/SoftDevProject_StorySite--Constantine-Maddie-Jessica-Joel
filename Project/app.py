@@ -36,15 +36,27 @@ def homePage():
     return render_template('home.html', username = username)
 
 
+#TOOLBAR FUNCTIONS - Joel
+
 #executed by a form
 @app.route('/search', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():
     d = request.form
     if len(d["query"]) > 0:
-        render_template("search.html", query = d["query"])
+        return render_template("search.html", query = d["query"])
+    return 0
+        
     #render_template()
 
+@app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def settings():
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    return 0
+
     
+#OTHER PAGES - Maddie
+
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
     return 0
@@ -66,15 +78,7 @@ def createStory(title, timestamp, usrID, editcontent):
         return redirect(url_for('root'))
     return 0
 
-    
-@app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def settings():
-    if (not isLoggedIn()):
-        return redirect(url_for('root'))
-    return 0
-
-
-#HELPERS
+#HELPERS--------------------------------------
 def isLoggedIn():
     return "user" in session
 
