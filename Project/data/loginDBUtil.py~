@@ -1,0 +1,6 @@
+import sqlite3
+
+
+##being given username and hashed password
+def isValidAccountInfo(uN, hP):
+
