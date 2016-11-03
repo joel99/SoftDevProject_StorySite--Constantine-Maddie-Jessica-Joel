@@ -6,7 +6,7 @@ app.secret_key = "secrets"
 
 @app.route("/") #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def root():
-    if "user" in session:#if logged in
+    if isLoggedIn():#if logged in
         return redirect(url_for('home'))
     else:#if not logged in
         return render_template('login.html')
@@ -31,21 +31,25 @@ def register():
 
 @app.route('/home') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def homePage():
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
     return render_template('home.html', username = username)
+
 
 #executed by a form
 @app.route('/search', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():
     d = request.form
     if len(d["query"]) > 0:
-        render_template("search.html")
+        render_template("search.html", query = d["query"])
     #render_template()
 
     
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
+    return 0
 
-@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/library/<string:idHash>')#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     d = request.form
     if "newPost" in request.args:
@@ -58,12 +62,24 @@ def storyPage(storyID, idHash):
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory(title, timestamp, usrID, editcontent):
-    
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    return 0
 
     
 @app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def settings():
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    return 0
 
+
+#HELPERS
+def isLoggedIn():
+    return "user" in session
+
+def getUser():
+    return session["user"]
 
 
 

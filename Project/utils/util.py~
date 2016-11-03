@@ -1,0 +1,4 @@
+from flask import Flask, session
+
+def isLoggedIn():
+    return "user" in session
