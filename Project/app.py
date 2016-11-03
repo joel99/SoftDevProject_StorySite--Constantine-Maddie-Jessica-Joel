@@ -10,6 +10,7 @@ def root():
     if isLoggedIn():#if logged in
         return redirect(url_for('home'))
     else:#if not logged in
+        print("not logged in")
         return render_template('login.html')
 
 @app.route("/login", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
