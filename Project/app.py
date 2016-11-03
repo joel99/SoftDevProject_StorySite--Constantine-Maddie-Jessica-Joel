@@ -24,6 +24,7 @@ def login():
 @app.route("/register", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def register():
     d = request.form
+    print("registering app.py")
     if login.isValidRegister(d["pass1"], d["pass2"], d["username"]):#needs to check databases
         login.register(d["username"], d["pass1"])
         session["userID"] = login.getUserID(d["username"])

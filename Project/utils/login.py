@@ -13,8 +13,10 @@ def getUserID(userName):
     
 #making new account
 def isValidRegister(pass1, pass2, username):
-    return pass1 == pass2 and len(username) > 0 and len(pass1) > 0
+    return True
+    #return pass1 == pass2 
 
 def register(username, password):
+    print("registering")
     hashedPass = hashlib.sha512(password).hexDigest()
     return loginDBUtil.registerAccountInfo(username, hashedPass)
