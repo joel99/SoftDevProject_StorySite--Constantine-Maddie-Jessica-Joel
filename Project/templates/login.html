@@ -1,59 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tell Me a Story | Login</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Tell Me a Story | {% block title %}Login{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
   </head>
   <body>
     <div class="toolbar">
       <div id="wrapper">
 	<div class="logo">
-	  <img src="<insert image location>" alt="Login"/>
+	  <img src="../img/TMaS.png"/>
 	</div>
+	<div class="search_box">
+            <form action="/search/" method="GET">
+                <input type="search" name="query" size="60" placeholder="Search stories..." minlength="1"/>
+		<input type="submit" value="Go!"> 
+            </form>
+        </div>
 	{% block toolbar %}
 	<div id="menu">
 	  <form action="/toolbarLoggedIn/">
 	    <input type="submit" value="Library">
 	    <input type="submit" value="Random">
-	    <input type="submit" value="Settings">
-	    <input type="submit" value="Log Out">
 	  </form>
 	</div>
 	{% endblock %}
       </div>
     </div>
 
+    {% block content %}
     <div id="parent">
       <div id="loginbox">
 	<form action="/login/" method="POST">
-	  <h3>Login</h3>
-	  Username:
+	  <h1>Login</h1><br>
+	  <label for="username">Username</label><br>
 	  <input type="text" name="username" placeholder="Username" required>
 	  <br><br>
-	  Password:
-	  <input type="password" name="password" placeholder="Password" required>
+	  <label for="pass">Password</label><br>
+	  <input type="password" name="pass" placeholder="Password" required>
 	  <br><br>
 	  <input type="submit" value="Log In">
 	</form>
       </div>
-    </div>
 
-    <div id="parent">
-      <div id="registerbox">
+      <div id="signupbox">
 	<form action="/register/" method="POST">
-	  <h3>Register</h3>
-	  Username:
+	  <h1>Register</h1><br>
+	  <label for="username">Username</label><br>
 	  <input type="text" name="username" placeholder="Username" required>
 	  <br><br>
-	  Password:
-	  <input type="password" name="password" placeholder="Password" required>
+	  <label for="pass1">Password</label><br>
+	  <input type="password" name="pass1" placeholder="Password" required>
 	  <br><br>
-	  Confirm Password:
-	  <input type="password" name="checkpass" placeholder="Retype Password" required>
+	  <label for="pass2">Confirm Password</label><br>
+	  <input type="password" name="pass2" placeholder="Retype Password" required>
 	  <br><br>
 	  <input type="submit" value="Register">
 	</form>
       </div>
     </div>
+    {% endblock %}
 
   </body>
 

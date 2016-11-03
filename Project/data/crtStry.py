@@ -9,7 +9,7 @@ import sqlite3
 ###Since this is a new story, the mostRecentEditID and EditID are just 1.
 
 ##to test:
-x = {"title":"FirstStory","timestamp":"Today", "userID":1, "editcontent":"this is edit content."}
+x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
 
 def addStory(d):
     db = sqlite3.connect("DB.db")
@@ -28,26 +28,19 @@ def addStory(d):
     sel = c.execute(cmd)
     addStoryID = 1
     for record in sel:
-        print record
-        addStoryID = addStoryID + record
+        addStoryID = addStoryID + record[0]
         break
 
-    print addTitle
-    print addStoryID
-    print addMRE
+    e = "INSERT INTO Stories VALUES(%s,%d,%d);"%(addTitle, addStoryID,addMRE )
 
-
-
-    e = "INSERT INTO Stories(%s,%d,%d);"%(addTitle, addStoryID, addMRE)
     c.execute(e)
 
-    e = "INSERT INTO Edits(%d,%s,%d,%d,%s);"%(addEid, addTime, addStoryID, addUser, edit)
-    c.execute(e)
+    
+    alpha = "INSERT INTO Edits VALUES(%d,%s,%d,%d,%s);"%(addEid, addTime, addStoryID, addUser, edit)
+    c.execute(alpha)
 
     db.commit()
     db.close()
 
 addStory(x)
 
-def hello():
-    print "hello, this works"

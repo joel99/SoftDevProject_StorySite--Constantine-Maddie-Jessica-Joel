@@ -1,0 +1,168 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, Sans-serif;
+    font-size: 12px;
+}
+
+.toolbar {
+    background-color: black;
+    height: 60px;
+    border-bottom: 0px;
+    padding-left: auto;
+    padding-right: auto;
+    width: 100%;
+}
+
+#wrapper {
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.logo {
+    background-color: black;
+    width: 150px;
+    padding-top: 10px;
+}
+
+.logo img {
+    width: 150px;
+    top: 0px;
+}
+
+.search_box {
+    background-color: E0E0E0;
+    position: absolute;
+    top: 15px;
+    margin-left: 150px;
+}
+
+@media screen and (max-width: 1080px) {
+#menu {
+    background-color: black;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 35px;
+    padding-top: 15px;
+    margin-right: 4%;
+}
+}
+@media screen and (min-width: 1080px) {
+#menu {
+    background-color: black;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 35px;
+    padding-top: 15px;
+    margin-right: 10%;
+}
+}
+
+@media screen and (min-width: 1920px) {
+#menu {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 35px;
+    padding-top: 15px;
+    margin-right: 25%;
+}
+}
+
+#menu a {
+    color: #FFFFFF;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+html { 
+  background-color: ECF0F1; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#parent {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+}
+
+#loginbox {
+    display: inline-block;
+    padding: 20px;
+    background-color: #F2F2F2;
+    margin-right: 10px;
+    width: 250px;
+}
+
+
+#loginbox input[type=text], input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#loginbox input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#loginbox input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+#signupbox {
+    display: inline-block;
+    padding: 20px;
+    background-color: #F2F2F2;
+    margin-left: 10px;
+    width: 250px;
+}
+
+#signupbox input[type=text], input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#signupbox input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#signupbox input[type=submit]:hover {
+    background-color: #45a049;
+}
