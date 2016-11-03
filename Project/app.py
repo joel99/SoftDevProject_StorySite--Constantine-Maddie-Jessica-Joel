@@ -13,7 +13,7 @@ def root():
         print("not logged in")
         return render_template('login.html')
 
-@app.route("/login", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route("/login/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def login():
     d = request.form
     if login.isValidLogin(d["username"], d["pass"]):
@@ -21,7 +21,7 @@ def login():
         return redirect(url_for('home')) #successful login
     return redirect(url_for('root')) #reload the login form
 
-@app.route("/register", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route("/register/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def register():
     d = request.form
     print("registering app.py")
