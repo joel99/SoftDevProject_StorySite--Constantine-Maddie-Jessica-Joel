@@ -50,3 +50,19 @@ def registerAccountInfo(uN, hP):
 
     db.commit()
     db.close()
+
+
+def doesUserExist(uN):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    ret = ""
+    cmd = "SELECT * FROM AccountInfo;"
+    sel = c.execute(cmd)
+    for record in sel:
+        if uN == record[0]:
+            db.close()
+            return False
+    db.close()
+    return True
+
+
