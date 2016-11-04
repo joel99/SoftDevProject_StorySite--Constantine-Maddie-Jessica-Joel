@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
-from utils import login, loginDBUtil
-import hashlib
 from utils import loginUtil, storyUtil
 
 
@@ -51,9 +49,12 @@ def home():
 @app.route('/search', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():
     d = request.form
-    if len(d["query"]) > 0:#should be passed anyway
-        return render_template("search.html", query = d["query"])
-    return 0
+    ids = storyUtil.getMatchingStoryIDs(d["query"])
+    storyUpdates = []
+    for i in ids:
+        storyUpdates.insert(storyUtil.getStoryUpdate(i))
+    return render_template("search.html", feedStories = storyUpdates)
+    
         
     #render_template()
 
@@ -68,7 +69,7 @@ def toolBarLoggedIn():
     elif (d["type"] == "Library"):
         return redirect(url_for('library'))
     elif (d["type"] == "Random"):#FIX!
-        randID = 0
+        randID = storyUtil.randStoryID()
         randIDHash = hashlib.md5(str(randID)).hexdigest()
         return redirect(url_for('storyPage', storyID = randID, idHash = randIDHash))
 
@@ -77,11 +78,6 @@ def toolBarLoggedIn():
 def logout():
     session.pop('userID')
     print session.keys()
-
-@app.route('/random/')
-def random():
-    return redirect(url_for('home')) #temp
-
 
 
 
@@ -98,7 +94,7 @@ def settings():
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
     # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
-    return render_template("library.html", libList = )
+    return render_template("library.html")
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
