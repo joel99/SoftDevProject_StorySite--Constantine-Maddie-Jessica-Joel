@@ -1,0 +1,30 @@
+{% extends "login.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block toolbar %}
+<div id="menu">
+  <form action="/toolbarLoggedIn/">
+    <input type="submit" value="Library">
+    <input type="submit" value="Random">
+    <input type="submit" value="Settings">
+    <input type="submit" value="Log Out">
+  </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="parent">
+  <div id="newstorybox">
+    <form action="/create/">
+      <h1>Create a New Story</h1><br>
+      <label for="title">Name your story</label><br>
+      <input type="text" name="title" placeholder="Title" required>
+      <br><br>
+      <textarea rows="4" cols="50" maxlength="250" name="editContent" placeholder="Start writing..." required></textarea>
+      <br><br>
+      <input type="submit" value="Submit Story">
+    </form>
+  </div>
+</div>
+{% endblock %}
