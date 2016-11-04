@@ -24,7 +24,7 @@ def getUserID(uN):
     sel = c.execute(cmd)
     for record in sel:
         if uN == record[0]:
-            ret = record[1]
+            ret = record[2]
     db.close()
     return ret
 

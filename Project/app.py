@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect
-import sqlite3, hashlib
-from utils import loginUtil
+import hashlib
+from utils import loginUtil, storyUtil
 
 app = Flask(__name__)
 app.secret_key = "secrets"
@@ -10,7 +10,6 @@ def root():
     if isLoggedIn():#if logged in
         return redirect(url_for('home'))
     else:#if not logged in
-        print("not logged in")
         return render_template('login.html')
 
 @app.route("/login/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,10 +23,10 @@ def login():
 @app.route("/register/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def register():
     d = request.form
-    print("registering app.py")
     if loginUtil.isValidRegister(d["pass1"], d["pass2"], d["username"]):#needs to check databases
         loginUtil.register(d["username"], d["pass1"])
         session["userID"] = loginUtil.getUserID(d["username"])
+        print "userID set as %s"%(session["userID"])
         return redirect(url_for('home'))
     return redirect(url_for('root'))
 
@@ -36,23 +35,13 @@ def home():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     #pull the relevant data from db, make list, pass to html
-    #stories = getStoryIDs(session["userID"])
-    #storyUpdates = [] #each update includes
+    stories = storyUtil.getStoryIDs(session["userID"])
+    storyUpdates = [] #each update includes
     #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
-    #for i in stories:
-    #    storyUpdates.insert(getStoryUpdate(i))
-    return render_template('home.html', username = username, feedStories = storyUpdates)
-
-
-def getStoryUpdate(storyID):
-    updateInfo = []
-    updateInfo.insert(getStoryTitle(i))
-    updateInfo.insert(getStoryAuthor(i))
-    updateInfo.insert(hashlib.md5(str(i)).hexDigest())
-    updateInfo.insert(getLatestEdit(i))
-    updateInfo.insert(getLatestTimeStamp(i))
-    return updateInfo
-    
+    for i in stories:
+        storyUpdates.insert(storyUtil.getStoryUpdate(i))
+    return render_template('home.html', feedStories = storyUpdates)
+ 
 #TOOLBAR FUNCTIONS - Joel
 
 #executed by a form
@@ -66,6 +55,31 @@ def search():
     #render_template()
 
 
+@app.route('/toolbarLoggedIn/', methods = ['POST'])
+def toolBarLoggedIn():
+    d = request.form
+    if (d["type"] == "Log Out"):
+        logout()
+        return redirect(url_for('root'))
+    elif (d["type"] == "Settings"):
+        return redirect(url_for('settings'))
+    elif (d["type"] == "Library"):
+        return redirect(url_for('library'))
+    elif (d["type"] == "Random"):#FIX!
+        randID = 0
+        randIDHash = hashlib.md5(str(randID)).hexdigest()
+        return redirect(url_for('storyPage', storyID = randID, idHash = randIDHash))
+
+    return redirect(url_for('home'))
+
+def logout():
+    session.pop('userID')
+    print session.keys()
+
+@app.route('/random/')
+def random():
+    return redirect(url_for('home')) #temp
+
 #OTHER PAGES - Maddie
 
 
@@ -76,7 +90,7 @@ def settings():
     return render_template("settings.html", user = getUser())
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def genLibrary():
+def library():
     return render_template("library.html")
 
 @app.route('/library/<string:idHash>')#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

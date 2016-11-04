@@ -4,11 +4,11 @@
 
 {% block toolbar %}
 <div id="menu">
-  <form action="/toolbarLoggedIn/">
-    <input type="submit" value="Library">
-    <input type="submit" value="Random">
-    <input type="submit" value="Settings">
-    <input type="submit" value="Log Out">
+  <form action="/toolbarLoggedIn/" method = "POST">
+    <input type="submit" value = "Library" name= "type">
+    <input type="submit" value = "Random" name = "type">
+    <input type="submit" value = "Settings" name = "type">
+    <input type="submit" value = "Log Out" name = "type">
   </form>
 </div>
 {% endblock %}
