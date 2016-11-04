@@ -1,0 +1,34 @@
+{% extends "login.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block toolbar %}
+<div id="menu">
+  <form action="/toolbarLoggedIn/">
+    <input type="submit" value="Library">
+    <input type="submit" value="Random">
+    <input type="submit" value="Settings">
+    <input type="submit" value="Log Out">
+  </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="parent">
+  <div id="newpwdbox">
+    <form action="/settings/">
+      <h1>Change Password</h1><br>
+      <label for="pass">Old Password</label><br>
+      <input type="password" name="pass" placeholder="Old Password" required>
+      <br><br>
+      <label for="pass1">New Password</label><br>
+      <input type="password" name="pass1" placeholder="New Password" required>
+      <br><br>
+      <label for="pass2">Confirm Password</label><br>
+      <input type="password" name="pass2" placeholder="Retype Password" required>
+      <br><br>
+      <input type="submit" value="Register">
+    </form>
+  </div>
+</div>
+{% endblock %}

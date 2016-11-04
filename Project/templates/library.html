@@ -1,0 +1,22 @@
+{% extends "login.html" %}
+
+{% block title %}Library{% endblock %}
+
+{% block toolbar %}
+<div id="menu">
+  <form action="/toolbarLoggedIn/">
+    <input type="submit" value="Library">
+    <input type="submit" value="Random">
+    <input type="submit" value="Settings">
+    <input type="submit" value="Log Out">
+  </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="parent">
+  <div id="">
+    <!--list of links to stories-->
+  </div>
+</div>
+{% endblock %}
