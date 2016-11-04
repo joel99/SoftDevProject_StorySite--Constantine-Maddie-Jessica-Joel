@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, session, url_for, redirect
+import sqlite3, hashlib
+from utils import login, loginDBUtil
 import hashlib
 from utils import loginUtil, storyUtil
+
 
 app = Flask(__name__)
 app.secret_key = "secrets"
@@ -55,6 +58,9 @@ def search():
     #render_template()
 
 
+<<<<<<< HEAD
+#OTHER PAGES - Maddie!!!
+=======
 @app.route('/toolbarLoggedIn/', methods = ['POST'])
 def toolBarLoggedIn():
     d = request.form
@@ -81,6 +87,7 @@ def random():
     return redirect(url_for('home')) #temp
 
 #OTHER PAGES - Maddie
+>>>>>>> f1fea624283f9616f23477c2e2d9b9c07061acc9
 
 
 @app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,10 +97,16 @@ def settings():
     return render_template("settings.html", user = getUser())
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<<<<<<< HEAD
+def genLibrary():
+    # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
+    return render_template("library.html", libList = )
+=======
 def library():
     return render_template("library.html")
+>>>>>>> f1fea624283f9616f23477c2e2d9b9c07061acc9
 
-@app.route('/library/<string:idHash>')#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     d = request.form
     if "newPost" in request.args:
@@ -105,10 +118,10 @@ def storyPage(storyID, idHash):
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def createStory(title, timestamp, usrID, editcontent):
+def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return 
+    return # title, timestamp, usrID, editcontent
 
 #HELPERS--------------------------------------
 def isLoggedIn():
