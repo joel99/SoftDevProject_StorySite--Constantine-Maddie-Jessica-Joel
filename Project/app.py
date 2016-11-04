@@ -65,7 +65,7 @@ def search():
     #render_template()
 
 
-#OTHER PAGES - Maddie
+#OTHER PAGES - Maddie!!!
 
 
 @app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,7 +76,8 @@ def settings():
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
-    return render_template("library.html")
+    # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
+    return render_template("library.html", libList = )
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
@@ -90,10 +91,10 @@ def storyPage(storyID, idHash):
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def createStory(title, timestamp, usrID, editcontent):
+def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return 
+    return # title, timestamp, usrID, editcontent
 
 #HELPERS--------------------------------------
 def isLoggedIn():
