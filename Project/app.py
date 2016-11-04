@@ -57,10 +57,6 @@ def search():
         
     #render_template()
 
-
-<<<<<<< HEAD
-#OTHER PAGES - Maddie!!!
-=======
 @app.route('/toolbarLoggedIn/', methods = ['POST'])
 def toolBarLoggedIn():
     d = request.form
@@ -86,27 +82,26 @@ def logout():
 def random():
     return redirect(url_for('home')) #temp
 
-#OTHER PAGES - Maddie
->>>>>>> f1fea624283f9616f23477c2e2d9b9c07061acc9
 
 
-@app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#OTHER PAGES - Maddie!!!
+
+
+@app.route('/settings') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def settings():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     return render_template("settings.html", user = getUser())
 
-@app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<<<<<<< HEAD
+
+@app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
     # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
     return render_template("library.html", libList = )
-=======
-def library():
-    return render_template("library.html")
->>>>>>> f1fea624283f9616f23477c2e2d9b9c07061acc9
 
-@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     d = request.form
     if "newPost" in request.args:
@@ -117,13 +112,15 @@ def storyPage(storyID, idHash):
         return render_template('storyPage.html', username = username)
 
 
-@app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     return # title, timestamp, usrID, editcontent
 
-#HELPERS--------------------------------------
+
+
+#HELPERS-----------------------------------------------------------------------
 def isLoggedIn():
     return "userID" in session
 
