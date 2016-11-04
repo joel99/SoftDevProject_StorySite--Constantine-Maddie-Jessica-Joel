@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
-from utils import login, loginDBUtil
 import hashlib
 from utils import loginUtil, storyUtil
 
@@ -97,8 +96,9 @@ def settings():
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
+    stories = {}
     # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
-    return render_template("library.html", libList = )
+    return render_template("library.html", libList = stories)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,15 +107,16 @@ def storyPage(storyID, idHash):
     if "newPost" in request.args:
         # CODE TO PUT FORM INFO INTO DB
         # CODE TO DISPLAY POST
-        return render_template('storyPage.html', username = username)
+        return render_template('storyPage.html', idHash = )
     else:
-        return render_template('storyPage.html', username = username)
+        return render_template('storyPage.html', idHash = username)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
+    getFullStory()
     return # title, timestamp, usrID, editcontent
 
 
