@@ -93,25 +93,27 @@ def settings():
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def genLibrary():
+    stories = {}
     # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
-    return render_template("library.html")
+    return render_template("library.html", libList = stories)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     d = request.form
-    if "newPost" in request.args:
+    #if "newPost" in request.args:
         # CODE TO PUT FORM INFO INTO DB
         # CODE TO DISPLAY POST
-        return render_template('storyPage.html', username = username)
-    else:
-        return render_template('storyPage.html', username = username)
+        #return render_template('storyPage.html', idHash = )
+    #else:
+    return render_template('storyPage.html', idHash = username)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
+    getFullStory()
     return # title, timestamp, usrID, editcontent
 
 

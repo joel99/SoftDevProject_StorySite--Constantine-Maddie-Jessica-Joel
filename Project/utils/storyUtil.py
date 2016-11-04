@@ -5,3 +5,6 @@ def getStoryIDs(userID):
 
 def getStoryUpdate(storyID):
     return storyDBUtil.getStoryUpdateInfo(storyID)
+
+def randStoryID():
+    return storyDBUtil.randStoryID()

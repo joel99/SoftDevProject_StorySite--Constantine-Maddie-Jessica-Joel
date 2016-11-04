@@ -1,0 +1,27 @@
+{% extends "login.html" %}
+
+{% block title %}{{ username }}|{{ title }}{% endblock %}
+
+{% block toolbar %}
+<div id="menu">
+  <form action="/toolbarLoggedIn/" method = "POST">
+    <input type="submit" value = "Library" name= "type">
+    <input type="submit" value = "Random" name = "type">
+    <input type="submit" value = "Settings" name = "type">
+    <input type="submit" value = "Log Out" name = "type">
+  </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="storyPage">
+  <center>
+    <h1>{{ title }}</h1><br><br>
+    <i>by {{ username }}</i>
+  </center>
+  <p>
+    <!-- entire story should go here -->
+    {{ story }}
+  </p>
+</div>
+{% endblock %}
