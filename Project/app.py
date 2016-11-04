@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
-from utils import login
+from utils import login, loginDBUtil
 
 app = Flask(__name__)
 app.secret_key = "secrets"
@@ -78,7 +78,7 @@ def settings():
 def genLibrary():
     return render_template("library.html")
 
-@app.route('/library/<string:idHash>')#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     d = request.form
     if "newPost" in request.args:
