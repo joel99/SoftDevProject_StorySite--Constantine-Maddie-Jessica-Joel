@@ -4,7 +4,7 @@ import sqlite3
 ##being given username and hashed password
 ##if found, return userid
 def isValidAccountInfo(uN, hP):
-    db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
 
     cmd = "SELECT * FROM AccountInfo;"
@@ -15,6 +15,8 @@ def isValidAccountInfo(uN, hP):
             return True
     db.close()
     return False
+
+
 
 def getUserID(uN):
     db = sqlite3.connect("data/DB.db")
@@ -29,7 +31,7 @@ def getUserID(uN):
     return ret
 
 def registerAccountInfo(uN, hP):
-    db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
 
     cmd = "SELECT UserID FROM AccountInfo ORDER BY UserID DESC;"
@@ -53,7 +55,7 @@ def registerAccountInfo(uN, hP):
 
 
 def doesUserExist(uN):
-    db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
     ret = ""
     cmd = "SELECT * FROM AccountInfo;"
@@ -61,8 +63,9 @@ def doesUserExist(uN):
     for record in sel:
         if uN == record[0]:
             db.close()
-            return False
+            return True
     db.close()
-    return True
+    return False
+
 
 
