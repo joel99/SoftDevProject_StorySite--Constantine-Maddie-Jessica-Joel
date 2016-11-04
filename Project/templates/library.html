@@ -15,8 +15,17 @@
 
 {% block content %}
 <div id="parent">
-  <div id="">
+  <div id="storyList">
     <!--list of links to stories-->
+    <list>
+      <ol>
+	{% for entry in libList %}:
+	<li>
+	  {{ entry }}
+	</li>
+	{% endfor %}
+      </ol>
+    </list>
   </div>
 </div>
 {% endblock %}
