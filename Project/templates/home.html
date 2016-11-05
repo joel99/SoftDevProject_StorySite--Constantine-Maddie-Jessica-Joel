@@ -14,7 +14,16 @@
 {% endblock %}
 
 {% block content %}
-<div>
-  <!-- see homePage(), need to insert stories, username??? -->
+{% for story in feedStories %}
+<div id="postbox">
+  <h1>{{ story[0] }}</h1> <i>by {{ story[3] }}</i><br>
+  <p>
+    Last Updated: {{ story[2] }}
+    <br><br>
+    {{ story[1] }}
+    <br><br>
+    To read the full story, click <a href = "url_for(storyPage, storyID = {{ story[5] }}, idHash = {{ story[4] }}">here</a>
+  </p>
 </div>
+{% endfor %}
 {% endblock %}

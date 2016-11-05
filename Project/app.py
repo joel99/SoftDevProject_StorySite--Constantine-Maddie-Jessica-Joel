@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
-import hashlib
 from utils import loginUtil, storyUtil
 
 
@@ -50,9 +49,12 @@ def home():
 @app.route('/search', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():
     d = request.form
-    if len(d["query"]) > 0:#should be passed anyway
-        return render_template("search.html", query = d["query"])
-    return 0
+    ids = storyUtil.getMatchingStoryIDs(d["query"])
+    storyUpdates = []
+    for i in ids:
+        storyUpdates.insert(storyUtil.getStoryUpdate(i))
+    return render_template("search.html", feedStories = storyUpdates)
+    
         
     #render_template()
 
@@ -67,20 +69,14 @@ def toolBarLoggedIn():
     elif (d["type"] == "Library"):
         return redirect(url_for('library'))
     elif (d["type"] == "Random"):#FIX!
-        randID = 0
-        randIDHash = hashlib.md5(str(randID)).hexdigest()
-        return redirect(url_for('storyPage', storyID = randID, idHash = randIDHash))
+        randID = storyUtil.randStoryID()
+        return redirect(url_for('storyPage', storyID = randID, idHash = pageHash(randID)))
 
     return redirect(url_for('home'))
 
 def logout():
     session.pop('userID')
     print session.keys()
-
-@app.route('/random/')
-def random():
-    return redirect(url_for('home')) #temp
-
 
 
 
@@ -95,7 +91,7 @@ def settings():
 
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def genLibrary():
+def library():
     stories = {}
     # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
     return render_template("library.html", libList = stories)
@@ -104,12 +100,12 @@ def genLibrary():
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     d = request.form
-    if "newPost" in request.args:
+    #if "newPost" in request.args:
         # CODE TO PUT FORM INFO INTO DB
         # CODE TO DISPLAY POST
-        return render_template('storyPage.html', idHash = )
-    else:
-        return render_template('storyPage.html', idHash = username)
+        #return render_template('storyPage.html', idHash = )
+    #else:
+    return render_template('storyPage.html', idHash = username)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,7 +124,8 @@ def isLoggedIn():
 def getUserID():
     return session["userID"]
 
-
+def pageHash(id):
+    return hashlib.md5(str(id)).hexdigest()
 
 if __name__ == "__main__":
     app.debug = True
