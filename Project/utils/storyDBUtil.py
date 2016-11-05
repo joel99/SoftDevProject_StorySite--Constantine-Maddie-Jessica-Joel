@@ -1,4 +1,4 @@
-import sqlite3,hashlib
+import sqlite3,hashlib, random
 
 def randStoryID():
     db = sqlite3.connect("data/DB.db")
@@ -6,7 +6,7 @@ def randStoryID():
     cmd = "SELECT * FROM Stories;"
     sel = c.execute(cmd)
     maxID = sel[0][0]
-    randomID = 
+    randomID = random.randRange(maxID)
     cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(randomID)
     sel = c.execute(cmd)
     db.close()
