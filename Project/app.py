@@ -107,8 +107,8 @@ def storyPage(storyID, idHash):
 def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    d.
-    addStory(title:)
+    # d.
+    # addStory(title:)
     return # title, timestamp, usrID, editcontent
 
 
