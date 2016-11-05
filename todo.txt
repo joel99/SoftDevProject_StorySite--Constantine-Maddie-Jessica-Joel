@@ -1,0 +1,3 @@
+Notes:
+Blob field in People Table in Database needs to be changed to text.
+Insert in the form of ints separated by spaces.

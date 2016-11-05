@@ -37,10 +37,14 @@ def home():
         return redirect(url_for('root'))
     #pull the relevant data from db, make list, pass to html
     stories = storyUtil.getStoryIDs(session["userID"])
+    #storyTest = storyUtil.getStoryIDs(session["userID"])
+    #print "UserID: " + str(session["userID"])
+    #print "USER STORIES: " + str(storyTest)
+    #stories = [storyTest]
     storyUpdates = [] #each update includes
     #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
     for i in stories:
-        storyUpdates.insert(storyUtil.getStoryUpdate(i))
+        storyUpdates.append(storyUtil.getStoryUpdate(i))
     return render_template('home.html', feedStories = storyUpdates)
  
 #TOOLBAR FUNCTIONS - Joel

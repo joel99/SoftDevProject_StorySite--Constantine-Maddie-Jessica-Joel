@@ -1,11 +1,18 @@
 import storyDBUtil
 
+<<<<<<< HEAD
 def getStoryIDs(userID): # returns all stories that a user has contributed to
     return storyDBUtil.getStoryIDs(userID)
+=======
+def getStoryIDs(userID):
+    storiesString = storyDBUtil.getStoryIDs(userID)
+    return [int(i) for i in storiesString.split()]
+>>>>>>> 958b25115c98366535a28ed3f2b19cf7c44a4166
 
 def getStoryUpdate(storyID): #gets the edits 
     return storyDBUtil.getStoryUpdateInfo(storyID)
 
+<<<<<<< HEAD
 def getStory(storyID): # returns a story with the given story ID
 	db = sqlite3.connect("data/DB.db")
     c = db.cursor()
@@ -49,5 +56,11 @@ def getFullStory(storyID): # returns a string of the entire story
     return story
 
 def randStoryID(): # returns a random story
+=======
+def getStory(storyID):
+	return 0
+
+def randStoryID():
+>>>>>>> 958b25115c98366535a28ed3f2b19cf7c44a4166
     return storyDBUtil.randStoryID()
 
