@@ -70,8 +70,7 @@ def toolBarLoggedIn():
         return redirect(url_for('library'))
     elif (d["type"] == "Random"):#FIX!
         randID = storyUtil.randStoryID()
-        randIDHash = hashlib.md5(str(randID)).hexdigest()
-        return redirect(url_for('storyPage', storyID = randID, idHash = randIDHash))
+        return redirect(url_for('storyPage', storyID = randID, idHash = pageHash(randID)))
 
     return redirect(url_for('home'))
 
@@ -92,7 +91,7 @@ def settings():
 
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def genLibrary():
+def library():
     stories = {}
     # CREATE A LIST OF ALL STORIES IN REVERSE ORDER (MOST RECENT @ TOP)
     return render_template("library.html", libList = stories)
@@ -125,7 +124,8 @@ def isLoggedIn():
 def getUserID():
     return session["userID"]
 
-
+def pageHash(id):
+    return hashlib.md5(str(id)).hexdigest()
 
 if __name__ == "__main__":
     app.debug = True
