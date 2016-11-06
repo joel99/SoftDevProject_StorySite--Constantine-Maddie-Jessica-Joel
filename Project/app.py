@@ -104,7 +104,7 @@ def library():
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
     story = getFullStory()
-    return render_template('storyPage.html', fullStory = story, idHash = idHash)
+    return render_template('storyPage.html', fullStory = story)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,7 +113,7 @@ def createStory():
         return redirect(url_for('root'))
     # d.
     # addStory(title:)
-    return # title, timestamp, usrID, editcontent
+    #return # title, timestamp, usrID, editcontent
 
 
 
