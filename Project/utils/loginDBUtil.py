@@ -46,7 +46,7 @@ def registerAccountInfo(uN, hP):
 
     storyList = ""
 
-    ##FIND STRING FORMATTING FOR LIST
+   
     add2PT = "INSERT INTO People VALUES (%d,'%s');"%(userID, storyList)
     c.execute(add2PT)
 

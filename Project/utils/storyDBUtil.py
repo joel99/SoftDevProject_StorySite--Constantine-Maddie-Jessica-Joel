@@ -5,10 +5,14 @@ def randStoryID():
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories;"
-    sel = c.execute(cmd).fetchone()
-    maxID = sel[1]
+    sel = c.execute(cmd)
+    maxID = sel[0][0]
+    randomID = random.randRange(maxID)
+    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(randomID)
+    sel = c.execute(cmd)
     db.close()
-    return random.randrange(maxID)
+    for record in sel:
+        return ret[0]
     
 def getStoryIDs(userID):
     print "getting story IDs from database"
@@ -95,7 +99,4 @@ def editStory(storyID, userID, content):
     db.commit()
     db.close()
 
-<<<<<<< HEAD
 editStory(1, 1, "'this is the fifth edit content'")
-=======
->>>>>>> 7b3460aa10466dd9f5ba4ded2c148960799141dd
