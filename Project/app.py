@@ -98,6 +98,18 @@ def settings():
         return redirect(url_for('root'))
     return render_template("settings.html", user = getUserID())
 
+@app.route('/changePass') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def changePass():
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    d = request.form # pass, pass1, pass2
+    OGpass = pageHash(d["pass"])
+    pass1 = pageHash(d["pass1"])
+    pass2 = pageHash(d["pass2"])
+    if OGPass == pageHash(getPass(getUserID())) && pass1 == pass2:
+        changePass(getUserID(), pass1)
+    return render_template("settings.html", user = getUserID())
+    
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def library():

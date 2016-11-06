@@ -68,11 +68,31 @@ def getEditors(storyID):
     cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(storyID)
     sel = c.execute(cmd)
     db.close()
-    editors = {}
+    editors = []
     for record in sel:
         editors.append(record[0])
     return editors
 
 def randStoryID():
     return storyDBUtil.randStoryID()
+
+
+
+def getPass(userID):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT HashedPass FROM AccountInfo WHERE UserID = %d;"%(userID)
+    sel = c.execute(cmd)
+    db.close()
+    
+    for record in sel:
+        return record[0]
+
+def changePass(userID, newPass):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "UPDATE AccountInfo SET HashedPass = newPass WHERE UserID = %d;"%(userID)
+    sel = c.execute(cmd)
+    db.close()
+    
 
