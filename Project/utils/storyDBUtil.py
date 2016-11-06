@@ -1,4 +1,5 @@
 import sqlite3, hashlib, random
+from time import gmtime, strftime
 
 def randStoryID():
     db = sqlite3.connect("data/DB.db")
@@ -59,37 +60,43 @@ def getStoryUpdateInfo(storyID):
 
 def editStory(storyID, userID, content):
     
-    db = sqlite3.connect("../data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
 
  
 
     cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(storyID)
     sel = c.execute(cmd).fetchone()
-    print sel
     mREID = sel[2] + 1
-    print mREID
 
-    cmdExtra = "UPDATE Stories SET mostRecentEditID = 5 WHERE StoryID = %d;"(storyID)
+    cmdExtra = "UPDATE Stories SET mostRecentEditID = %d WHERE StoryID = %d;"%(mREID, storyID)
     c.execute(cmdExtra)
 
 
     cmd2 = "SELECT EditID FROM Edits ORDER BY EditID DESC;"
-    sel2 = c.execute(cmd2).fetchone()
-    newEditId = sel2[0] + 1
 
-    timestamp = "today"
+    sel2 = c.execute(cmd2).fetchone()
+    
+    newEditId = sel2[0] + 1
+   
+
+    timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    timestamp = "'" + timestamp + "'"
 
     cmd3 = "INSERT INTO Edits VALUES (%d,%s,%d,%d,%s);"%(newEditId, timestamp, storyID, userID, content)
     c.execute(cmd3)
 
     cmd4 = "SELECT StoryIDs FROM People WHERE UserID = userID;"
-    sel3 = c.execut(cmd4).fetchone()
-    sel3[1] = sel3[1] + " " + storyID
+    sel3 = c.execute(cmd4).fetchone()
+    listOfStoryIds = sel3[0]
+
+
+    listOfStoryIds = listOfStoryIds + " "+ str(storyID)
+    cmd4Extra = "UPDATE People Set StoryIDs = %s WHERE UserID = %d;"%(listOfStoryIds, userID)
 
     
-    db.close()
+  
     db.commit()
+    db.close()
 
-editStory(1, 1, "this is the second edit content")
-   
+editStory(1, 1, "'this is the second edit content'")
