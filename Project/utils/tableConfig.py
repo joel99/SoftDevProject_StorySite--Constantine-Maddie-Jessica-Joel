@@ -13,7 +13,7 @@ c.execute(storyTable)
 editsTable = "CREATE TABLE Edits(EditID INTEGER, timeStamp TEXT, StoryID INTEGER, UserID INTEGER, EditContent TEXT);"
 c.execute(editsTable)
 
-peopleTable = "CREATE TABLE People(UserID INTEGER, StoryIDs BLOB);"
+peopleTable = "CREATE TABLE People(UserID INTEGER, StoryIDs TEXT);"
 c.execute(peopleTable)
 
 accntTable = "CREATE TABLE AccountInfo(Username TEXT, HashedPass TEXT, UserID INTEGER);"
