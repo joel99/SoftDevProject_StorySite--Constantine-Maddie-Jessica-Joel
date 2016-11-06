@@ -4,15 +4,15 @@ from time import gmtime, strftime
 def randStoryID():
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "SELECT * FROM Stories;"
-    sel = c.execute(cmd)
-    maxID = sel[0][0]
-    randomID = random.randRange(maxID)
-    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(randomID)
-    sel = c.execute(cmd)
+    cmd = "SELECT StoryID FROM Stories ORDER BY StoryID DESC;"
+    sel = c.execute(cmd).fetchone()
+    maxID = sel[0]
+    randomID = random.randrange(maxID)
+    cmd = "SELECT StoryID FROM Stories WHERE StoryID = %d;"%(randomID)
+    sel = c.execute(cmd).fetchone()
+    return sel[0]
     db.close()
-    for record in sel:
-        return ret[0]
+randStoryID()
     
 def getStoryIDs(userID):
     print "getting story IDs from database"
@@ -60,7 +60,7 @@ def getStoryUpdateInfo(storyID):
 
 def editStory(storyID, userID, content):
     
-    db = sqlite3.connect("../data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
 
  
@@ -91,7 +91,7 @@ def editStory(storyID, userID, content):
     listOfStoryIds = sel3[0]
 
 
-    listOfStoryIds = listOfStoryIds + " "+ str(storyID)
+    listOfStoryIds = listOfStoryIds + "X1 "+ str(storyID)
     cmd4Extra = "UPDATE People Set StoryIDs = %s WHERE UserID = %d;"%(listOfStoryIds, userID)
 
     
@@ -99,4 +99,4 @@ def editStory(storyID, userID, content):
     db.commit()
     db.close()
 
-editStory(1, 1, "'this is the fifth edit content'")
+#editStory(1, 1, "'this is the fifth edit content'")

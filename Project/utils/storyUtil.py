@@ -2,13 +2,18 @@ import storyDBUtil, sqlite3, crtStry
 
 def getStoryIDsForUser(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
+   ## print storiesString
     splitter = storiesString.split()
+   ## print splitter
     ret = []
     for i in splitter:
-        if not (i is ''):
-            ret.append(int(float(i)))
+      ##  print "."+i+"."
+        ret.append(int(i))
+   ## print ret
     return ret
     #return [int(i) for i in storiesString.split()]
+
+getStoryIDsForUser(1)
 
 def getStoryUpdate(storyID): #gets the edits 
     return storyDBUtil.getStoryUpdateInfo(storyID)

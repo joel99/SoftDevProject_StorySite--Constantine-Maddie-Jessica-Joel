@@ -148,8 +148,8 @@ def createStory():
     d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    crtStry.addStory(d["title"], time, session["userID"], d["editContent"])
+   ## time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    crtStry.addStory(d["title"], session["userID"], d["editContent"])
     return redirect(url_for('home'))
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent

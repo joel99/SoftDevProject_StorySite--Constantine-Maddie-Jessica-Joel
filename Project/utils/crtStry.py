@@ -13,7 +13,7 @@ from time import gmtime, strftime
 ##x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
 
 def addStory(title, userID, editContent):
-    db = sqlite3.connect("../data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     
     addTitle = title
@@ -55,5 +55,5 @@ def addStory(title, userID, editContent):
     db.commit()
     db.close()
 
-addStory("FirstStory", 1, "this is the first edit content")
+
 
