@@ -55,4 +55,18 @@ def getStoryUpdateInfo(storyID):
     updateInfo.append(storyID)
     db.close()
     return updateInfo
+
+
+def editStory(storyID, userID, content):
+    
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+
+    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(storyID)
+    sel = c.execute(cmd).fetchone()
+    sel[2] = sel[2] + 1
+
+    cmd2 = "SELECT * FROM EDITS WHERE StoryID = %d;"%(storyID)
+    
+    
    
