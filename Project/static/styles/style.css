@@ -175,7 +175,7 @@ html {
     width: 250px;
 }
 
-#newpwdbox input[type=text], input[type=password], select {
+#newpwdbox input[type=password], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -208,7 +208,7 @@ html {
     width: 250px;
 }
 
-#newstorybox input[type=text], input[type=password], select {
+#newstorybox input[type=text], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -231,4 +231,16 @@ html {
 
 #newstorybox input[type=submit]:hover {
     background-color: #45a049;
+}
+
+#storyPage {
+
+}
+
+#storyList {
+
+}
+
+#postbox {
+
 }
