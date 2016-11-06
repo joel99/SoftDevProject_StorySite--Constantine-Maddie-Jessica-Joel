@@ -12,7 +12,7 @@ import sqlite3
 ##x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
 
 def addStory(title, timestamp, userID, editContent):
-    db = sqlite3.connect("../data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     
     addTitle = title

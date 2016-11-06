@@ -66,8 +66,8 @@ def search():
 def toolBar():
     d = request.form
     if isLoggedIn():
-        print "what"
         print d.keys()
+        print d.values()
         print "dtype is " + d["type"]
         if (d["type"] == "Log Out"):
             logout()
@@ -143,13 +143,13 @@ def createPage():
         return redirect(url_for('root'))
     return render_template("create.html", isLoggedIn = 'True')
 
-@app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/create/', methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
     d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    crtStory.addStory(d["title"], time, session["userID"], d["editContent"])
+    crtStry.addStory(d["title"], time, session["userID"], d["editContent"])
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent
 
