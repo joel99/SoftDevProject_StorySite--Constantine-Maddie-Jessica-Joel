@@ -98,10 +98,10 @@ def library():
     titles = getStoryTitles()
     IDs = getStoryIDs()
     hashedIDs = []
-        for ID in IDs:
-            hashedIDs.append(pageHash(ID))
+    for ID in IDs:
+        hashedIDs.append(pageHash(ID))
     both = [titles, hashedIDs]
-    return render_template("library.html", isLoggedIn = isLoggedIn() libList = both)
+    return render_template("library.html", isLoggedIn = isLoggedIn(), libList = both)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,6 @@ def createStory():
         return redirect(url_for('root'))
     time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     addStory(d["title"], time, session["userID"], d["editContent"])
-)
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent
 
