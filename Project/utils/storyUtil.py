@@ -2,7 +2,13 @@ import storyDBUtil, sqlite3, crtStry
 
 def getStoryIDsForUser(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
-    return [int(i) for i in storiesString.split()]
+    splitter = storiesString.split()
+    ret = []
+    for i in splitter:
+        if not (i is ''):
+            ret.append(int(float(i)))
+    return ret
+    #return [int(i) for i in storiesString.split()]
 
 def getStoryUpdate(storyID): #gets the edits 
     return storyDBUtil.getStoryUpdateInfo(storyID)
@@ -45,10 +51,10 @@ def getStoryIDs(): # returns a list of all story titles in order of most recentl
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
-    db.close()
     IDs = []
     for record in sel:
         IDs.append(record[1])
+    db.close()
     return IDs
 
 def getFullStory(storyID): # returns a string of the entire story

@@ -31,14 +31,17 @@ def addStory(title, timestamp, userID, editContent):
         addStoryID = addStoryID + record[0]
         break
 
-    e = "INSERT INTO Stories VALUES(%s,%d,%d);"%(addTitle, addStoryID,addMRE )
+    e = "INSERT INTO Stories VALUES('%s',%d,%d);"%(addTitle, addStoryID,addMRE )
 
     c.execute(e)
 
     
-    alpha = "INSERT INTO Edits VALUES(%d,%s,%d,%d,%s);"%(addEid, addTime, addStoryID, addUser, edit)
+    alpha = "INSERT INTO Edits VALUES(%d,'%s',%d,%d,'%s');"%(addEid, addTime, addStoryID, addUser, edit)
     c.execute(alpha)
 
+    beta = "UPDATE People SET StoryIDs = StoryIDs + '%d ' WHERE UserID = userID"%(userID)
+    c.execute(beta)
+    
     db.commit()
     db.close()
 

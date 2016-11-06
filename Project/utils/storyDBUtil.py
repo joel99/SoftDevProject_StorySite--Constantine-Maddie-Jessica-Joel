@@ -5,14 +5,10 @@ def randStoryID():
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories;"
-    sel = c.execute(cmd)
-    maxID = sel[0][0]
-    randomID = random.randRange(maxID)
-    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(randomID)
-    sel = c.execute(cmd)
+    sel = c.execute(cmd).fetchone()
+    maxID = sel[1]
     db.close()
-    for record in sel:
-        return ret[0]
+    return random.randrange(maxID)
     
 def getStoryIDs(userID):
     print "getting story IDs from database"

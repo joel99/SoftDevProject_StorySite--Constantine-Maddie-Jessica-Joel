@@ -118,13 +118,13 @@ def changePass():
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def library():
-    titles = getStoryTitles()
-    IDs = getStoryIDs()
+    titles = storyUtil.getStoryTitles()
+    IDs = storyUtil.getStoryIDs()
     hashedIDs = []
     for ID in IDs:
         hashedIDs.append(pageHash(ID))
     allOfEm = [titles, hashedIDs, IDs]
-    return render_template("library.html", isLoggedIn = isLoggedIn(), libList = allOfEm)
+    return render_template("library.html", isLoggedIn = str(isLoggedIn()), libList = allOfEm)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,6 +150,7 @@ def createStory():
         return redirect(url_for('root'))
     time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     crtStry.addStory(d["title"], time, session["userID"], d["editContent"])
+    return redirect(url_for('home'))
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent
 
