@@ -39,7 +39,7 @@ def home():
     #pull the relevant data from db, make list, pass to html
     stories = storyUtil.getStoryIDsForUser(session["userID"])
     if (len(stories) == 0):
-        return render_template('home.html', isEmpty = True)
+        return render_template('home.html', isLoggedIn = 'True', isEmpty = True)
     else:
         storyUpdates = [] #each update includes
         #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
@@ -106,7 +106,7 @@ def library():
     for ID in IDs:
         hashedIDs.append(pageHash(ID))
     allOfEm = [titles, hashedIDs, IDs]
-    return render_template("library.html", isLoggedIn = isLoggedIn() libList = allOfEm)
+    return render_template("library.html", isLoggedIn = isLoggedIn(), libList = allOfEm)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
