@@ -76,7 +76,7 @@ def getEditors(storyID):
 def randStoryID():
     return storyDBUtil.randStoryID()
 
-<<<<<<< HEAD
+
 
 def getPass(userID):
     db = sqlite3.connect("data/DB.db")
@@ -95,5 +95,4 @@ def changePass(userID, newPass):
     sel = c.execute(cmd)
     db.close()
     
-=======
->>>>>>> bf3de9819d1aac16a7d1a7e73875b723ec63e420
+
