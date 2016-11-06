@@ -10,7 +10,7 @@
       <ol>
 	{% for entry in libList %}
 	<li>
-	  {{ entry }}
+	  <a href="url_for('app.storyPage', storyID = {{ entry[2] }}, idHash = {{ entry[1] }})">{{ entry[0] }}</a>
 	</li>
 	{% endfor %}
       </ol>
