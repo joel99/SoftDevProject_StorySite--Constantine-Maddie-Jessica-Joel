@@ -12,19 +12,26 @@
 	  <img src="/static/img/TMaS.png"/>
 	</div>
 	<div class="search_box">
-            <form action="/search/" method="GET">
-                <input type="search" name="query" size="60" placeholder="Search stories..." minlength="1" required/>
-		<input type="submit" value="Go!"> 
-            </form>
+          <form action="/search/" method="GET">
+            <input type="search" name="query" size="60" placeholder="Search stories..." minlength="1" required/>
+	    <input type="submit" value="Go!"> 
+          </form>
         </div>
-	{% block toolbar %}
+
 	<div id="menu">
-	  <form action="/toolbarLoggedIn/">
+	  <form action="/toolbar/">
+	    {% if isLoggedIn %}
 	    <input type="submit" value="Library">
 	    <input type="submit" value="Random">
+	    <input type="submit" value="Settings">
+	    <input type="submit" value="Log Out">
+	    {% else %}
+	    <input type="submit" value="Library">
+	    <input type="submit" value="Random">
+	    {% endif %}
 	  </form>
 	</div>
-	{% endblock %}
+
       </div>
     </div>
 
