@@ -105,8 +105,8 @@ def library():
     hashedIDs = []
     for ID in IDs:
         hashedIDs.append(pageHash(ID))
-    both = [titles, hashedIDs]
-    return render_template("library.html", isLoggedIn = str(isLoggedIn()), libList = both)
+    allOfEm = [titles, hashedIDs, IDs]
+    return render_template("library.html", isLoggedIn = isLoggedIn() libList = allOfEm)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
