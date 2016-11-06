@@ -9,7 +9,6 @@ app.secret_key = "secrets"
 
 @app.route("/") #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def root():
-    logout()
     if isLoggedIn():#if logged in
         return redirect(url_for('home'))
     else:#if not logged in
