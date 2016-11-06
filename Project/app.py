@@ -37,10 +37,6 @@ def home():
         return redirect(url_for('root'))
     #pull the relevant data from db, make list, pass to html
     stories = storyUtil.getStoryIDs(session["userID"])
-    #storyTest = storyUtil.getStoryIDs(session["userID"])
-    #print "UserID: " + str(session["userID"])
-    #print "USER STORIES: " + str(storyTest)
-    #stories = [storyTest]
     storyUpdates = [] #each update includes
     #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
     for i in stories:
@@ -58,24 +54,26 @@ def search():
     for i in ids:
         storyUpdates.insert(storyUtil.getStoryUpdate(i))
     return render_template("search.html", feedStories = storyUpdates)
-    
-        
-    #render_template()
 
-@app.route('/toolbarLoggedIn/', methods = ['POST'])
+
+@app.route('/toolbar/', methods = ['POST'])
 def toolBarLoggedIn():
     d = request.form
-    if (d["type"] == "Log Out"):
-        logout()
-        return redirect(url_for('root'))
-    elif (d["type"] == "Settings"):
-        return redirect(url_for('settings'))
-    elif (d["type"] == "Library"):
+    if isLoggedIn():
+        if (d["type"] == "Log Out"):
+            logout()
+            return redirect(url_for('root'))
+        if (d["type"] == "Settings"):
+            return redirect(url_for('settings'))
+    else:
+        if (d["type"] == "Log In"):
+            return redirect(url_for('root'))
+    if (d["type"] == "Library"):
         return redirect(url_for('library'))
-    elif (d["type"] == "Random"):#FIX!
+    if (d["type"] == "Random"):
         randID = storyUtil.randStoryID()
         return redirect(url_for('storyPage', storyID = randID, idHash = pageHash(randID)))
-
+    #somehow...    
     return redirect(url_for('home'))
 
 def logout():

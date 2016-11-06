@@ -27,6 +27,19 @@ def getStoryTitles(): # returns a list of all story titles in order of most rece
         titles.append(record[0])
     return titles
 
+def getMatchingStoryTitles(queryString):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT * FROM Stories ORDER BY StoryID Desc;"
+    sel = c.execute(cmd)
+    db.close()
+    matchingStories = []
+    for record in sel:
+        if (record[0].lower() in queryString.lower() or queryString.lower() in record[0].lower()):
+            matchingStories.append([record[0], record[1]])
+    return matchingStories
+    
+
 def getStoryIDs(): # returns a list of all story titles in order of most recently edited
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
