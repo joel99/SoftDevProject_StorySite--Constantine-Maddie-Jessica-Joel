@@ -59,7 +59,7 @@ def search():
         return render_template('search.html', isEmpty = True)
     storyUpdates = []
     for i in ids:
-        storyUpdates.insert(storyUtil.getStoryUpdate(i))
+        storyUpdates.append(storyUtil.getStoryUpdate(i))
     return render_template("search.html", isLoggedIn = str(isLoggedIn()), feedStories = storyUpdates)
 
 
@@ -96,19 +96,19 @@ def logout():
 def settings():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return render_template("settings.html", user = getUserID())
+    return render_template("settings.html", user = getUserID(), isLoggedIn = 'True')
 
 @app.route('/changePass') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def changePass():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     d = request.form # pass, pass1, pass2
-    OGpass = pageHash(d["pass"])
-    pass1 = pageHash(d["pass1"])
-    pass2 = pageHash(d["pass2"])
-    if OGPass == pageHash(getPass(getUserID())) && pass1 == pass2:
-        changePass(getUserID(), pass1)
-    return render_template("settings.html", user = getUserID())
+    OGpass = passHash(d["pass"])
+    pass1 = d["pass1"]
+    pass2 = d["pass2"]
+    if OGPass == storyUtil.getPass(getUserID()) and pass1 == pass2:
+        storyUtil.changePass(getUserID(), passHash(pass1))
+    return redirect(url_for('settings'))
     
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,6 +154,9 @@ def getUserID():
 
 def pageHash(id):
     return hashlib.md5(str(id)).hexdigest()
+
+def passHash(pwd):
+    return hashlib.sha512(pwd).hexdigest()
 
 if __name__ == "__main__":
     app.debug = True
