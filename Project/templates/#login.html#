@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Tell Me a Story | {% block title %}Login{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+  </head>
+  <body>
+    <div class="toolbar">
+      <div id="wrapper">
+	<div class="logo">
+	  <img src="/static/img/TMaS.png"/>
+	</div>
+	<div class="search_box">
+          <form action="/search/" method="GET">
+            <input type="search" name="query" size="60" placeholder="Search stories..." minlength="1" required/>
+	    <input type="submit" value="Go!"> 
+          </form>
+        </div>
+
+	<div id="menu">
+	  <form action="/toolbar/">
+	    {% if isLoggedIn %}
+	    <input type="submit" value="Library">
+	    <input type="submit" value="Random">
+	    <input type="submit" value="Settings">
+	    <input type="submit" value="Log Out">
+	    {% else %}
+	    <input type="submit" value="Library">
+	    <input type="submit" value="Random">
+	    {% endif %}
+	  </form>
+	</div>
+
+      </div>
+    </div>
+
+    {% block content %}
+    <div id="parent">
+      <div id="loginbox">
+	<form action="/login/" method="POST">
+	  <h1>Login</h1><br>
+	  <label for="username">Username</label><br>
+	  <input type="text" name="username" placeholder="Username" required>
+	  <br><br>
+	  <label for="pass">Password</label><br>
+	  <input type="password" name="pass" placeholder="Password" required>
+	  <br><br>
+	  <input type="submit" value="Log In">
+	</form>
+      </div>
+
+      <div id="signupbox">
+	<form action="/register/" method="POST">
+	  <h1>Register</h1><br>
+	  <label for="username">Username</label><br>
+	  <input type="text" name="username" placeholder="Username" required>
+	  <br><br>
+	  <label for="pass1">Password</label><br>
+	  <input type="password" name="pass1" placeholder="Password" required>
+	  <br><br>
+	  <label for="pass2">Confirm Password</label><br>
+	  <input type="password" name="pass2" placeholder="Retype Password" required>
+	  <br><br>
+	  <input type="submit" value="Register">
+	</form>
+      </div>
+    </div>
+    {% endblock %}
+
+  </body>
+
+</html>

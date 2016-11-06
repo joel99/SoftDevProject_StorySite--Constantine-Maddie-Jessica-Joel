@@ -1,6 +1,6 @@
 import storyDBUtil, sqlite3, crtStry
 
-def getStoryIDs(userID):
+def getStoryIDsForUser(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
     return [int(i) for i in storiesString.split()]
 
@@ -21,10 +21,10 @@ def getStoryTitles(): # returns a list of all story titles in order of most rece
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
-    db.close()
     titles = []
     for record in sel:
         titles.append(record[0])
+    db.close()
     return titles
 
 def getMatchingStoryTitles(queryString):
@@ -32,11 +32,11 @@ def getMatchingStoryTitles(queryString):
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID Desc;"
     sel = c.execute(cmd)
-    db.close()
     matchingStories = []
     for record in sel:
         if (record[0].lower() in queryString.lower() or queryString.lower() in record[0].lower()):
-            matchingStories.append([record[0], record[1]])
+            matchingStories.append(record[1])
+    db.close()
     return matchingStories
     
 
@@ -62,9 +62,6 @@ def getFullStory(storyID): # returns a string of the entire story
         story += record + " "
     return story
 
-def getStory(storyID):
-	return 0
-
 def getEditors(storyID):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
@@ -79,6 +76,7 @@ def getEditors(storyID):
 def randStoryID():
     return storyDBUtil.randStoryID()
 
+<<<<<<< HEAD
 
 def getPass(userID):
     db = sqlite3.connect("data/DB.db")
@@ -97,3 +95,5 @@ def changePass(userID, newPass):
     sel = c.execute(cmd)
     db.close()
     
+=======
+>>>>>>> bf3de9819d1aac16a7d1a7e73875b723ec63e420

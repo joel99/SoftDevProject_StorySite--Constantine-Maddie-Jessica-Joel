@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
 from time import gmtime, strftime
-from utils import loginUtil, storyUtil
+from utils import loginUtil, storyUtil, crtStry
 
 
 app = Flask(__name__)
@@ -9,10 +9,11 @@ app.secret_key = "secrets"
 
 @app.route("/") #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def root():
+    logout()
     if isLoggedIn():#if logged in
         return redirect(url_for('home'))
     else:#if not logged in
-        return render_template('login.html')
+        return render_template('login.html', isLoggedIn = str(False))
 
 @app.route("/login/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def login():
@@ -28,7 +29,6 @@ def register():
     if loginUtil.isValidRegister(d["pass1"], d["pass2"], d["username"]):#needs to check databases
         loginUtil.register(d["username"], d["pass1"])
         session["userID"] = loginUtil.getUserID(d["username"])
-        print "userID set as %s"%(session["userID"])
         return redirect(url_for('home'))
     return redirect(url_for('root'))
 
@@ -37,28 +37,33 @@ def home():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     #pull the relevant data from db, make list, pass to html
-    stories = storyUtil.getStoryIDs(session["userID"])
-    storyUpdates = [] #each update includes
-    #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
-    for i in stories:
-        storyUpdates.append(storyUtil.getStoryUpdate(i))
-    return render_template('home.html', feedStories = storyUpdates)
+    stories = storyUtil.getStoryIDsForUser(session["userID"])
+    if (len(stories) == 0):
+        return render_template('home.html', isLoggedIn = 'True', isEmpty = True)
+    else:
+        storyUpdates = [] #each update includes
+        #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
+        for i in stories:
+            storyUpdates.append(storyUtil.getStoryUpdate(i))
+        print
+        return render_template('home.html', isLoggedIn = 'True', feedStories = storyUpdates)
  
 #TOOLBAR FUNCTIONS - Joel
 
 #executed by a form
-@app.route('/search', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/search/', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():
-    d = request.form
-    ids = storyUtil.getMatchingStoryIDs(d["query"])
+    query =  request.args.get("query")
+    print query
+    ids = storyUtil.getMatchingStoryTitles(query)
     storyUpdates = []
     for i in ids:
         storyUpdates.insert(storyUtil.getStoryUpdate(i))
-    return render_template("search.html", feedStories = storyUpdates)
+    return render_template("search.html", isLoggedIn = str(isLoggedIn()), feedStories = storyUpdates)
 
 
-@app.route('/toolbar/', methods = ['POST'])
-def toolBarLoggedIn():
+@app.route('/toolbar', methods = ['POST'])
+def toolBar():
     d = request.form
     if isLoggedIn():
         if (d["type"] == "Log Out"):
@@ -110,10 +115,10 @@ def library():
     titles = getStoryTitles()
     IDs = getStoryIDs()
     hashedIDs = []
-        for ID in IDs:
-            hashedIDs.append(pageHash(ID))
+    for ID in IDs:
+        hashedIDs.append(pageHash(ID))
     allOfEm = [titles, hashedIDs, IDs]
-    return render_template("library.html", isLoggedIn = isLoggedIn() libList = allOfEm)
+    return render_template("library.html", isLoggedIn = isLoggedIn(), libList = allOfEm)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -124,7 +129,7 @@ def storyPage(storyID, idHash):
         if pageHash(ind) == idHash:
             canEdit = False
     story = getFullStory()
-    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = isLoggedIn(), fullStory = story)
+    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -133,7 +138,7 @@ def createStory():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
     time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    addStory(d["title"], time, session["userID"], d["editContent"])
+    crtStory.addStory(d["title"], time, session["userID"], d["editContent"])
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent
 
