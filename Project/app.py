@@ -53,10 +53,10 @@ def search():
     storyUpdates = []
     for i in ids:
         storyUpdates.insert(storyUtil.getStoryUpdate(i))
-    return render_template("search.html", feedStories = storyUpdates)
+    return render_template("search.html", isLoggedIn = isLoggedIn(), feedStories = storyUpdates)
 
 
-@app.route('/toolbar/', methods = ['POST'])
+@app.route('/toolbar', methods = ['POST'])
 def toolBarLoggedIn():
     d = request.form
     if isLoggedIn():

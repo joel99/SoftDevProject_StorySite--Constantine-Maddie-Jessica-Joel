@@ -36,7 +36,7 @@ def getMatchingStoryTitles(queryString):
     matchingStories = []
     for record in sel:
         if (record[0].lower() in queryString.lower() or queryString.lower() in record[0].lower()):
-            matchingStories.append([record[0], record[1]])
+            matchingStories.append(record[1])
     return matchingStories
     
 
