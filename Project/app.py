@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
+from time import gmtime, strftime
 from utils import loginUtil, storyUtil
 
 
@@ -116,9 +117,12 @@ def storyPage(storyID, idHash):
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
+    d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    # d.
+    time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    addStory(d["title"], time, session["userID"], d["editContent"])
+)
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent
 

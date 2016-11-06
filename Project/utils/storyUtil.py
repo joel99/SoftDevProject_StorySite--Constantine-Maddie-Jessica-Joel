@@ -1,4 +1,4 @@
-import storyDBUtil, sqlite3
+import storyDBUtil, sqlite3, crtStry
 
 def getStoryIDs(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
@@ -78,4 +78,7 @@ def getEditors(storyID):
 
 def randStoryID():
     return storyDBUtil.randStoryID()
+
+
+def 
 
