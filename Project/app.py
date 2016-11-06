@@ -91,20 +91,29 @@ def logout():
 def settings():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return render_template("settings.html", user = getUser())
+    return render_template("settings.html", user = getUserID())
 
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def library():
     titles = getStoryTitles()
     IDs = getStoryIDs()
-    return render_template("library.html", libTitles = titles, libIDs = IDs)
+    hashedIDs = []
+        for ID in IDs:
+            hashedIDs.append(pageHash(ID))
+    both = [titles, hashedIDs]
+    return render_template("library.html", isLoggedIn = isLoggedIn() libList = both)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
+    editors = getEditors(storyID)
+    canEdit = True
+    for ind in editors:
+        if pageHash(ind) == idHash:
+            canEdit = False
     story = getFullStory()
-    return render_template('storyPage.html', fullStory = story)
+    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = isLoggedIn(), fullStory = story)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
