@@ -2,28 +2,24 @@
 
 {% block title %}{{ username }}|{{ title }}{% endblock %}
 
-{% block toolbar %}
-<div id="menu">
-  <form action="/toolbarLoggedIn/" method = "POST">
-    <input type="submit" value = "Library" name= "type">
-    <input type="submit" value = "Random" name = "type">
-    <input type="submit" value = "Settings" name = "type">
-    <input type="submit" value = "Log Out" name = "type">
-  </form>
-</div>
-{% endblock %}
-
 {% block content %}
-<div id="storyPage">
-  <center>
-    <h1>{{ title }}</h1><br><br>
-    <i>by {{ username }}</i>
-  </center>
-  <p>
-    <!-- entire story should go here, if storyID is in the list that the user contributed to, no form is shown -->
-    {{ story }}
-  </p>
-  <br><br>
-  <!-- form would go here -->
+<div id="parent">
+  <div id="storyPage">
+    <center>
+      <h1>{{ title }}</h1><br><br>
+      <i>by {{ username }}</i>
+    </center>
+    <p>
+      {{ fullStory }}
+    </p>
+    <br><br>
+    {% if canEdit %}
+    <form action="/library/<string:idHash>/">
+      <textarea rows="4" cols="50" maxlength="250" name="editContent" placeholder="Start writing..." required></textarea>
+      <br><br>
+      <input type="submit" value="Submit Edit">
+    </form>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

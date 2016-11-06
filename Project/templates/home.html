@@ -2,28 +2,19 @@
 
 {% block title %}Home{% endblock %}
 
-{% block toolbar %}
-<div id="menu">
-  <form action="/toolbarLoggedIn/" method = "POST">
-    <input type="submit" value = "Library" name= "type">
-    <input type="submit" value = "Random" name = "type">
-    <input type="submit" value = "Settings" name = "type">
-    <input type="submit" value = "Log Out" name = "type">
-  </form>
-</div>
-{% endblock %}
-
 {% block content %}
-{% for story in feedStories %}
-<div id="postbox">
-  <h1>{{ story[0] }}</h1> <i>by {{ story[3] }}</i><br>
-  <p>
-    Last Updated: {{ story[2] }}
-    <br><br>
-    {{ story[1] }}
-    <br><br>
-    To read the full story, click <a href = "url_for(storyPage, storyID = {{ story[5] }}, idHash = {{ story[4] }}">here</a>
-  </p>
+<div id="parent">
+  {% for story in feedStories %}
+  <div id="postbox">
+    <h1>{{ story[0] }}</h1> <i>by {{ story[3] }}</i><br>
+    <p>
+      Last Updated: {{ story[2] }}
+      <br><br>
+      {{ story[1] }}
+      <br><br>
+      To read the full story, click <a href = "url_for(storyPage, storyID = {{ story[5] }}, idHash = {{ story[4] }}">here</a>
+    </p>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

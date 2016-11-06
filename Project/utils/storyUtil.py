@@ -1,4 +1,4 @@
-import storyDBUtil, sqlite3
+import storyDBUtil, sqlite3, crtStry
 
 def getStoryIDs(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
@@ -22,7 +22,7 @@ def getStoryTitles(): # returns a list of all story titles in order of most rece
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
     db.close()
-    titles = {}
+    titles = []
     for record in sel:
         titles.append(record[0])
     return titles
@@ -46,7 +46,7 @@ def getStoryIDs(): # returns a list of all story titles in order of most recentl
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
     db.close()
-    IDs = {}
+    IDs = []
     for record in sel:
         IDs.append(record[1])
     return IDs
@@ -65,6 +65,20 @@ def getFullStory(storyID): # returns a string of the entire story
 def getStory(storyID):
 	return 0
 
+def getEditors(storyID):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(storyID)
+    sel = c.execute(cmd)
+    db.close()
+    editors = {}
+    for record in sel:
+        editors.append(record[0])
+    return editors
+
 def randStoryID():
     return storyDBUtil.randStoryID()
+
+
+def 
 
