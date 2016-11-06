@@ -1,6 +1,6 @@
 import storyDBUtil, sqlite3, crtStry
 
-def getStoryIDs(userID):
+def getStoryIDsForUser(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
     return [int(i) for i in storiesString.split()]
 
@@ -21,10 +21,10 @@ def getStoryTitles(): # returns a list of all story titles in order of most rece
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
-    db.close()
     titles = []
     for record in sel:
         titles.append(record[0])
+    db.close()
     return titles
 
 def getMatchingStoryTitles(queryString):
@@ -32,11 +32,11 @@ def getMatchingStoryTitles(queryString):
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID Desc;"
     sel = c.execute(cmd)
-    db.close()
     matchingStories = []
     for record in sel:
         if (record[0].lower() in queryString.lower() or queryString.lower() in record[0].lower()):
-            matchingStories.append([record[0], record[1]])
+            matchingStories.append(record[1])
+    db.close()
     return matchingStories
     
 
@@ -62,16 +62,13 @@ def getFullStory(storyID): # returns a string of the entire story
         story += record + " "
     return story
 
-def getStory(storyID):
-	return 0
-
 def getEditors(storyID):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(storyID)
     sel = c.execute(cmd)
     db.close()
-    editors = {}
+    editors = []
     for record in sel:
         editors.append(record[0])
     return editors
@@ -80,5 +77,22 @@ def randStoryID():
     return storyDBUtil.randStoryID()
 
 
-def 
+
+def getPass(userID):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT HashedPass FROM AccountInfo WHERE UserID = %d;"%(userID)
+    sel = c.execute(cmd)
+    db.close()
+    
+    for record in sel:
+        return record[0]
+
+def changePass(userID, newPass):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "UPDATE AccountInfo SET HashedPass = newPass WHERE UserID = %d;"%(userID)
+    sel = c.execute(cmd)
+    db.close()
+    
 
