@@ -45,7 +45,6 @@ def home():
         #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
         for i in stories:
             storyUpdates.append(storyUtil.getStoryUpdate(i))
-        print
         return render_template('home.html', isLoggedIn = 'True', feedStories = storyUpdates)
  
 #TOOLBAR FUNCTIONS - Joel
@@ -56,6 +55,8 @@ def search():
     query =  request.args.get("query")
     print query
     ids = storyUtil.getMatchingStoryTitles(query)
+    if (len(ids) == 0):
+        return render_template('search.html', isEmpty = True)
     storyUpdates = []
     for i in ids:
         storyUpdates.insert(storyUtil.getStoryUpdate(i))
