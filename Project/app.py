@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
+from time import gmtime, strftime
 from utils import loginUtil, storyUtil
 
 
@@ -37,10 +38,6 @@ def home():
         return redirect(url_for('root'))
     #pull the relevant data from db, make list, pass to html
     stories = storyUtil.getStoryIDs(session["userID"])
-    #storyTest = storyUtil.getStoryIDs(session["userID"])
-    #print "UserID: " + str(session["userID"])
-    #print "USER STORIES: " + str(storyTest)
-    #stories = [storyTest]
     storyUpdates = [] #each update includes
     #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
     for i in stories:
@@ -58,24 +55,26 @@ def search():
     for i in ids:
         storyUpdates.insert(storyUtil.getStoryUpdate(i))
     return render_template("search.html", feedStories = storyUpdates)
-    
-        
-    #render_template()
 
-@app.route('/toolbarLoggedIn/', methods = ['POST'])
+
+@app.route('/toolbar/', methods = ['POST'])
 def toolBarLoggedIn():
     d = request.form
-    if (d["type"] == "Log Out"):
-        logout()
-        return redirect(url_for('root'))
-    elif (d["type"] == "Settings"):
-        return redirect(url_for('settings'))
-    elif (d["type"] == "Library"):
+    if isLoggedIn():
+        if (d["type"] == "Log Out"):
+            logout()
+            return redirect(url_for('root'))
+        if (d["type"] == "Settings"):
+            return redirect(url_for('settings'))
+    else:
+        if (d["type"] == "Log In"):
+            return redirect(url_for('root'))
+    if (d["type"] == "Library"):
         return redirect(url_for('library'))
-    elif (d["type"] == "Random"):#FIX!
+    if (d["type"] == "Random"):
         randID = storyUtil.randStoryID()
         return redirect(url_for('storyPage', storyID = randID, idHash = pageHash(randID)))
-
+    #somehow...    
     return redirect(url_for('home'))
 
 def logout():
@@ -91,29 +90,41 @@ def logout():
 def settings():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    return render_template("settings.html", user = getUser())
+    return render_template("settings.html", user = getUserID())
 
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def library():
     titles = getStoryTitles()
     IDs = getStoryIDs()
-    return render_template("library.html", libTitles = titles, libIDs = IDs)
+    hashedIDs = []
+        for ID in IDs:
+            hashedIDs.append(pageHash(ID))
+    both = [titles, hashedIDs]
+    return render_template("library.html", isLoggedIn = isLoggedIn() libList = both)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID, idHash):
+    editors = getEditors(storyID)
+    canEdit = True
+    for ind in editors:
+        if pageHash(ind) == idHash:
+            canEdit = False
     story = getFullStory()
-    return render_template('storyPage.html', fullStory = story, idHash = idHash)
+    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = isLoggedIn(), fullStory = story)
 
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
+    d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    # d.
+    time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    addStory(d["title"], time, session["userID"], d["editContent"])
+)
     # addStory(title:)
-    return # title, timestamp, usrID, editcontent
+    #return # title, timestamp, usrID, editcontent
 
 
 

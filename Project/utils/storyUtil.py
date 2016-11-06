@@ -1,20 +1,14 @@
-import storyDBUtil
+import storyDBUtil, sqlite3, crtStry
 
-<<<<<<< HEAD
-def getStoryIDs(userID): # returns all stories that a user has contributed to
-    return storyDBUtil.getStoryIDs(userID)
-=======
 def getStoryIDs(userID):
     storiesString = storyDBUtil.getStoryIDs(userID)
     return [int(i) for i in storiesString.split()]
->>>>>>> 958b25115c98366535a28ed3f2b19cf7c44a4166
 
 def getStoryUpdate(storyID): #gets the edits 
     return storyDBUtil.getStoryUpdateInfo(storyID)
 
-<<<<<<< HEAD
 def getStory(storyID): # returns a story with the given story ID
-	db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(storyID)
     sel = c.execute(cmd)
@@ -23,29 +17,42 @@ def getStory(storyID): # returns a story with the given story ID
         return ret[0]
 
 def getStoryTitles(): # returns a list of all story titles in order of most recently edited
-	db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
     db.close()
-    titles = {}
+    titles = []
     for record in sel:
         titles.append(record[0])
     return titles
 
+def getMatchingStoryTitles(queryString):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT * FROM Stories ORDER BY StoryID Desc;"
+    sel = c.execute(cmd)
+    db.close()
+    matchingStories = []
+    for record in sel:
+        if (record[0].lower() in queryString.lower() or queryString.lower() in record[0].lower()):
+            matchingStories.append([record[0], record[1]])
+    return matchingStories
+    
+
 def getStoryIDs(): # returns a list of all story titles in order of most recently edited
-	db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
     db.close()
-    IDs = {}
+    IDs = []
     for record in sel:
         IDs.append(record[1])
     return IDs
 
 def getFullStory(storyID): # returns a string of the entire story
-	db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT EditContent FROM Edits WHERE StoryID = %d;"%(storyID)
     sel = c.execute(cmd)
@@ -55,12 +62,23 @@ def getFullStory(storyID): # returns a string of the entire story
         story += record + " "
     return story
 
-def randStoryID(): # returns a random story
-=======
 def getStory(storyID):
 	return 0
 
+def getEditors(storyID):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(storyID)
+    sel = c.execute(cmd)
+    db.close()
+    editors = {}
+    for record in sel:
+        editors.append(record[0])
+    return editors
+
 def randStoryID():
->>>>>>> 958b25115c98366535a28ed3f2b19cf7c44a4166
     return storyDBUtil.randStoryID()
+
+
+def 
 

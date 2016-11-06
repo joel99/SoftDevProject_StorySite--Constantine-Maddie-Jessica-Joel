@@ -1,4 +1,4 @@
-import sqlite3,hashlib, random
+import sqlite3, hashlib, random
 
 def randStoryID():
     db = sqlite3.connect("data/DB.db")

@@ -9,16 +9,16 @@ import sqlite3
 ###Since this is a new story, the mostRecentEditID and EditID are just 1.
 
 ##to test:
-x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
+##x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
 
-def addStory(d):
+def addStory(title, timestamp, userID, editContent):
     db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
     
-    addTitle = d["title"]
-    addTime = d["timestamp"]
-    addUser = d["userID"]
-    edit = d["editcontent"]
+    addTitle = title
+    addTime = timestamp
+    addUser = userID
+    edit = editContent
     addMRE = 1
     addEid = 1
 
