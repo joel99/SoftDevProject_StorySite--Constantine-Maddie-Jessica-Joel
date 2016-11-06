@@ -42,5 +42,3 @@ def addStory(title, timestamp, userID, editContent):
     db.commit()
     db.close()
 
-addStory(x)
-
