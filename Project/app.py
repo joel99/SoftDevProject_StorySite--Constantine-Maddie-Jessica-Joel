@@ -122,7 +122,6 @@ def createStory():
         return redirect(url_for('root'))
     time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     addStory(d["title"], time, session["userID"], d["editContent"])
-)
     # addStory(title:)
     #return # title, timestamp, usrID, editcontent
 
