@@ -23,7 +23,6 @@
 	    {% if isLoggedIn %}
 	    <input type="submit" value="Library">
 	    <input type="submit" value="Random">
-	    <input type="submit" value="New Story">
 	    <input type="submit" value="Settings">
 	    <input type="submit" value="Log Out">
 	    {% else %}

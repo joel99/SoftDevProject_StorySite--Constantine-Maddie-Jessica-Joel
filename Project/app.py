@@ -39,7 +39,7 @@ def home():
     #pull the relevant data from db, make list, pass to html
     stories = storyUtil.getStoryIDsForUser(session["userID"])
     if (len(stories) == 0):
-        return render_template('home.html', isEmpty = True)
+        return render_template('home.html', isLoggedIn = 'True', isEmpty = True)
     else:
         storyUpdates = [] #each update includes
         #storyTitles, original author, link (generate it), mostRecentText (use database), editTimeStamp
@@ -97,6 +97,18 @@ def settings():
         return redirect(url_for('root'))
     return render_template("settings.html", user = getUserID())
 
+@app.route('/changePass') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def changePass():
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    d = request.form # pass, pass1, pass2
+    OGpass = pageHash(d["pass"])
+    pass1 = pageHash(d["pass1"])
+    pass2 = pageHash(d["pass2"])
+    if OGPass == pageHash(getPass(getUserID())) && pass1 == pass2:
+        changePass(getUserID(), pass1)
+    return render_template("settings.html", user = getUserID())
+    
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def library():
@@ -106,7 +118,7 @@ def library():
     for ID in IDs:
         hashedIDs.append(pageHash(ID))
     allOfEm = [titles, hashedIDs, IDs]
-    return render_template("library.html", isLoggedIn = isLoggedIn() libList = allOfEm)
+    return render_template("library.html", isLoggedIn = isLoggedIn(), libList = allOfEm)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

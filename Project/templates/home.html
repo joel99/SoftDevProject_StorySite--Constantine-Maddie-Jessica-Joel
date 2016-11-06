@@ -4,6 +4,9 @@
 
 {% block content %}
 <div id="parent">
+  {% if isEmpty %}
+  <p> Hey. It looks like you have no stories. Go make some, or browse the library! </p>
+  {% endif %}
   {% for story in feedStories %}
   <div id="postbox">
     <h1>{{ story[0] }}</h1>
