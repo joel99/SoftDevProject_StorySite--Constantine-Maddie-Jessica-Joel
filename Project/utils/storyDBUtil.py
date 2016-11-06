@@ -99,4 +99,3 @@ def editStory(storyID, userID, content):
     db.commit()
     db.close()
 
-editStory(1, 1, "'this is the second edit content'")

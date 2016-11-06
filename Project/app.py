@@ -12,7 +12,7 @@ def root():
     if isLoggedIn():#if logged in
         return redirect(url_for('home'))
     else:#if not logged in
-        return render_template('login.html', isLoggedIn = str(False))
+        return render_template('login.html', isLoggedIn = 'False')
 
 @app.route("/login/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def login():
@@ -22,7 +22,7 @@ def login():
         return redirect(url_for('home')) #successful login
     return redirect(url_for('root')) #reload the login form
 
-@app.route("/register/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route("/register/", methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def register():
     d = request.form
     if loginUtil.isValidRegister(d["pass1"], d["pass2"], d["username"]):#needs to check databases
@@ -62,15 +62,21 @@ def search():
     return render_template("search.html", isLoggedIn = str(isLoggedIn()), feedStories = storyUpdates)
 
 
-@app.route('/toolbar', methods = ['POST'])
+@app.route('/toolbar/', methods = ['POST'])
 def toolBar():
     d = request.form
     if isLoggedIn():
+        print "what"
+        print d.keys()
+        print "dtype is " + d["type"]
         if (d["type"] == "Log Out"):
             logout()
             return redirect(url_for('root'))
         if (d["type"] == "Settings"):
             return redirect(url_for('settings'))
+        if (d["type"] == "New Story"):
+            print "why"
+            return redirect(url_for('createPage'))
     else:
         if (d["type"] == "Log In"):
             return redirect(url_for('root'))
@@ -131,6 +137,11 @@ def storyPage(storyID, idHash):
     story = getFullStory()
     return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
+@app.route('/createPage')
+def createPage():
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    return render_template("create.html", isLoggedIn = 'True')
 
 @app.route('/create') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createStory():
