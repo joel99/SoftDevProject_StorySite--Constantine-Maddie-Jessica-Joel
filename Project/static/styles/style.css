@@ -75,12 +75,16 @@
 }
 }
 
-#menu a {
+#menu input[type=submit] {
     color: #FFFFFF;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+#menu input[type=submit]:hover {
+    background-color: #45a049;
 }
 
 html { 
