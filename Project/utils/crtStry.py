@@ -12,8 +12,13 @@ from time import gmtime, strftime
 ##to test:
 ##x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
 
+<<<<<<< HEAD
 def addStory(title, userID, editContent):
     db = sqlite3.connect("../data/DB.db")
+=======
+def addStory(title, timestamp, userID, editContent):
+    db = sqlite3.connect("data/DB.db")
+>>>>>>> 7b3460aa10466dd9f5ba4ded2c148960799141dd
     c = db.cursor()
     
     addTitle = title
@@ -34,14 +39,15 @@ def addStory(title, userID, editContent):
         addStoryID = addStoryID + record[0]
         break
 
-    e = "INSERT INTO Stories VALUES(%s,%d,%d);"%(addTitle, addStoryID,addMRE )
+    e = "INSERT INTO Stories VALUES('%s',%d,%d);"%(addTitle, addStoryID,addMRE )
 
     c.execute(e)
 
     
-    alpha = "INSERT INTO Edits VALUES(%d,%s,%d,%d,%s);"%(addEid, addTime, addStoryID, addUser, edit)
+    alpha = "INSERT INTO Edits VALUES(%d,'%s',%d,%d,'%s');"%(addEid, addTime, addStoryID, addUser, edit)
     c.execute(alpha)
 
+<<<<<<< HEAD
     cmd4 = "SELECT StoryIDs FROM People WHERE UserID = userID;"
     sel3 = c.execute(cmd4).fetchone()
     listOfStoryIds = sel3[0]
@@ -51,6 +57,10 @@ def addStory(title, userID, editContent):
     cmd4Extra = "UPDATE People Set StoryIDs = %s WHERE UserID = %d;"%(listOfStoryIds, userID)
     c.execute(cmd4Extra)
 
+=======
+    beta = "UPDATE People SET StoryIDs = StoryIDs + '%d ' WHERE UserID = userID"%(userID)
+    c.execute(beta)
+>>>>>>> 7b3460aa10466dd9f5ba4ded2c148960799141dd
     
     db.commit()
     db.close()

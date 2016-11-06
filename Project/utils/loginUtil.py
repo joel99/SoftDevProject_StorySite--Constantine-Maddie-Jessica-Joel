@@ -15,6 +15,5 @@ def isValidRegister(pass1, pass2, username):
     return pass1 == pass2 and (not loginDBUtil.doesUserExist(username))
 
 def register(username, password):
-    print("registering")
     hashedPass = hashlib.sha512(password).hexdigest()
     return loginDBUtil.registerAccountInfo(username, hashedPass)

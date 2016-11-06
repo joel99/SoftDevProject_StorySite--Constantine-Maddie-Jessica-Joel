@@ -3,32 +3,36 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Tell Me a Story | {% block title %}Login{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/static/styles/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css" /> 
   </head>
   <body>
     <div class="toolbar">
       <div id="wrapper">
 	<div class="logo">
-	  <img src="/static/img/TMaS.png"/>
+	  <!-- maybe change link to login instead of home? -->
+	  <a href="/home">
+	    <img src="/static/img/TMaS.png"/>
+	  </a>
 	</div>
 	<div class="search_box">
           <form action="/search/" method="GET">
-            <input type="search" name="query" size="60" placeholder="Search stories..." minlength="1" required/>
+            <input type="search" name="query" size="50" placeholder="Search stories..." minlength="1" required/>
 	    <input type="submit" value="Go!"> 
           </form>
         </div>
 
 	<div id="menu">
-	  <form action="/toolbar/">
-	    {% if isLoggedIn %}
-	    <input type="submit" value="Library">
-	    <input type="submit" value="Random">
-	    <input type="submit" value="New Story">
-	    <input type="submit" value="Settings">
-	    <input type="submit" value="Log Out">
+	  <form action="/toolbar/" method="POST">
+	    {% if isLoggedIn == 'True' %}
+	    <input type="submit" name="type" value="Library">
+	    <input type="submit" name="type" value="Random">
+	    <input type="submit" name="type" value="New Story">
+	    <input type="submit" name="type" value="Settings">
+	    <input type="submit" name="type" value="Log Out">
 	    {% else %}
-	    <input type="submit" value="Library">
-	    <input type="submit" value="Random">
+	    <input type="submit" name="type" value="Library">
+	    <input type="submit" name="type" value="Random">
 	    {% endif %}
 	  </form>
 	</div>

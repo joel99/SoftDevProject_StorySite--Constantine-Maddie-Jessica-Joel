@@ -36,9 +36,11 @@
 
 .search_box {
     background-color: E0E0E0;
-    position: absolute;
+    position: relative;
     top: 15px;
     margin-left: 150px;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 1080px) {
@@ -69,22 +71,24 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    height: 35px;
-    padding-top: 15px;
-    margin-right: 25%;
+    height: 30px;
+    padding-top: 10px;
+    margin-right: 20%;
 }
 }
 
 #menu input[type=submit] {
-    color: #FFFFFF;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: black;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border: none;
 }
 
 #menu input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #bfbfbf;
 }
 
 html { 
@@ -238,13 +242,13 @@ html {
 }
 
 #storyPage {
-
+    
 }
 
 #storyList {
-
+    
 }
 
 #postbox {
-
+    
 }
