@@ -31,7 +31,7 @@ def getUserID(uN):
     return ret
 
 def registerAccountInfo(uN, hP):
-    db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
 
     cmd = "SELECT UserID FROM AccountInfo ORDER BY UserID DESC;"
@@ -53,6 +53,7 @@ def registerAccountInfo(uN, hP):
     db.commit()
     db.close()
 
+registerAccountInfo("User1","Password1")
 
 def doesUserExist(uN):
     db = sqlite3.connect("data/DB.db")

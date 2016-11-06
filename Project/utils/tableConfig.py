@@ -16,6 +16,9 @@ c.execute(editsTable)
 peopleTable = "CREATE TABLE People(UserID INTEGER, StoryIDs TEXT);"
 c.execute(peopleTable)
 
+needForPeople = "UPDATE People SET StoryIDs = '';"
+c.execute(needForPeople)
+
 accntTable = "CREATE TABLE AccountInfo(Username TEXT, HashedPass TEXT, UserID INTEGER);"
 c.execute(accntTable)
 

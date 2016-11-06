@@ -60,7 +60,7 @@ def getStoryUpdateInfo(storyID):
 
 def editStory(storyID, userID, content):
     
-    db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
 
  
@@ -99,4 +99,4 @@ def editStory(storyID, userID, content):
     db.commit()
     db.close()
 
-editStory(1, 1, "'this is the second edit content'")
+editStory(1, 1, "'this is the fifth edit content'")
