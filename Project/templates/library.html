@@ -8,10 +8,9 @@
     <center><h1>Library</h1><center>
     <list>
       <ol>
-  {{ aTitle, anID, aHashedID }}
 	{% for entry in libList %}
 	<li>
-	  <a href={{ url_for('storyPage', storyID = entry[2], idHash = entry[1]) }}>{{ entry[0] }}</a>
+	  <a href={{ url_for('storyPage', id = entry[1], storyID = entry[1]) }}>{{ entry[0] }}</a>
 	</li>
 	{% endfor %}
       </ol>
