@@ -64,7 +64,7 @@ def getStoryUpdateInfo(storyID):
 
 def editStory(storyID, userID, content):
     
-    db = sqlite3.connect("data/DB.db")
+    db = sqlite3.connect("../data/DB.db")
     c = db.cursor()
 
     cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(int(storyID))
@@ -83,9 +83,10 @@ def editStory(storyID, userID, content):
    
 
     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-    timestamp = "'" + timestamp + "'"
+   # timestamp = "'" + timestamp + "'"
 
-    cmd3 = "INSERT INTO Edits VALUES (%d,'%s',%d,%d,'%s');"%(int(newEditId), str(timestamp), int(storyID), int(userID), str(content))
+    cmd3 = "INSERT INTO Edits VALUES (%d,'%s',%d,%d,'%s');"%(int(newEditId),timestamp, int(storyID), int(userID), str(content))
+    print cmd3
     c.execute(cmd3)
 
     cmd4 = "SELECT StoryIDs FROM People WHERE UserID = '%s';"%(userID)
@@ -102,3 +103,4 @@ def editStory(storyID, userID, content):
     db.commit()
     db.close()
 
+#editStory(1,1,"i want to edit")
