@@ -71,7 +71,7 @@ def getFullStory(storyID): # returns a string of the entire story
     story = ""
     # sel = list(sel)
     for record in sel:
-        story += str(record) + " "
+        story += str(record[0]) + " "
     db.close()
     return story
 
