@@ -4,20 +4,28 @@
 
 {% block content %}
 <div id="parent">
+  <!--<center><h1>Following</h1></center>-->
   {% if isEmpty %}
   <p> Hey. It looks like you have no stories. Go make some, or browse the library! </p>
   {% endif %}
-  {% for story in feedStories %}
-  <div id="postbox">
-    <h1>{{ story[0] }}</h1>
-    <p>
-      Last Updated: {{ story[2] }} <i> by {{ story[3] }} </i>
-      <br><br>
-      {{ story[1] }}
-      <br><br>
-      To read the full story, click <a href = "url_for('app.storyPage', storyID = {{ story[5] }}, idHash = {{ story[4] }})">here</a>
-    </p>
-  </div>
-  {% endfor %}
+  <table>
+    <th>Following</th>
+    {% for story in feedStories %}
+    <tr>
+      <td>
+	<div id="postbox">
+	  <h1>{{ story[0] }}</h1>
+	  <p>
+	    Last Updated: {{ story[2] }} <i> by {{ story[3] }} </i>
+	    <br><br>
+	    {{ story[1] }}
+	    <br><br>
+	    To read the full story, click <a href = "url_for('app.storyPage', storyID = {{ story[5] }}, idHash = {{ story[4] }})">here</a>
+	  </p>
+	</div>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 </div>
 {% endblock %}
