@@ -73,12 +73,12 @@ def getFullStory(storyID): # returns a string of the entire story
     story = ""
     # sel = list(sel)
     for record in sel:
-        story += str(record) + " "
+        story += str(record[0]) + " "
     db.close()
     return story
 
 def getEditors(storyID):
-    db = sqlite3.connect("../data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd)
