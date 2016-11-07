@@ -67,21 +67,21 @@ def getStoryIDs(): # returns a list of all story ids in order of most recently c
 def getFullStory(storyID): # returns a string of the entire story
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "SELECT EditContent FROM Edits WHERE StoryID = %d;"%(storyID)
+    cmd = "SELECT EditContent FROM Edits WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd)
-    db.close()
     story = ""
     for record in sel:
         story += record + " "
+    db.close()
     return story
 
 def getEditors(storyID):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "SELECT UserID FROM Edits WHERE StoryID = %s;"%(str(storyID))
+    cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd)
-    db.close()
     editors = list(sel)
+    db.close()
     return editors
 
 def randStoryID():
