@@ -132,7 +132,8 @@ def storyPage(storyID):
     for ind in editors:
         if ind == getUserID():
             canEdit = False
-    story = storyUtil.getFullStory(storyID)
+    #story = storyUtil.getFullStory(storyID)
+    story = storyUtil.getLastEdit(storyID)
     return render_template('storyPage.html', user = getUserID(), storyID = storyID, title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 

@@ -77,6 +77,17 @@ def getFullStory(storyID): # returns a string of the entire story
     db.close()
     return story
 
+def getLastEdit(storyID):
+    db = sqlite3.connect("data/DB.db")
+    c = db.cursor()
+    cmd = "SELECT EditContent FROM Edits WHERE StoryID = %d;"%(int(storyID))
+    sel = c.execute(cmd)
+    lastEdit = ""
+    for record in sel:
+        lastEdit = str(record[0])
+    db.close()
+    return lastEdit
+
 def getEditors(storyID):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
@@ -85,15 +96,12 @@ def getEditors(storyID):
     editors=[]
     for i in sel:
         editors.append(i[0])
-   
     db.close()
-
     return editors
 
 
 def randStoryID():
     return storyDBUtil.randStoryID()
-
 
 
 def getPass(userID):
