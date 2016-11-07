@@ -58,7 +58,9 @@ def getStoryIDs(): # returns a list of all story ids in order of most recently c
     c = db.cursor()
     cmd = "SELECT StoryID FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
-    IDs = list(sel)
+    IDs = list()
+    for record in sel:
+        IDs.append(record[0])
     db.close()
     return IDs
 
