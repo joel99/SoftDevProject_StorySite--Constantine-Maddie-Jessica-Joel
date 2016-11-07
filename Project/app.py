@@ -136,11 +136,11 @@ def storyPage(storyID):
         if ind == getUserID():
             canEdit = False
     story = storyUtil.getFullStory(storyID)
-    return render_template('storyPage.html', userID = getUserID(), storyID = storyID, title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
+    return render_template('storyPage.html', user = getUserID(), storyID = storyID, title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 
 @app.route('/edit/<storyID>', methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def editStory(storyID, userID):
+def edit(storyID, userID):
     d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
