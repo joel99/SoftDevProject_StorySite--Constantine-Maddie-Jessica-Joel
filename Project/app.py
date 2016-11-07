@@ -128,7 +128,7 @@ def library():
     return render_template("library.html", isLoggedIn = str(isLoggedIn()), libList = allOfEm)
 
 
-@app.route('/library/<id>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/library/<storyID>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID):
     editors = getEditors(storyID)
     canEdit = True
@@ -136,7 +136,7 @@ def storyPage(storyID):
         if ind == getUerID():
             canEdit = False
     story = getFullStory()
-    return render_template('storyPage.html', id = storyID, title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
+    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 @app.route('/createPage')
 def createPage():
