@@ -43,7 +43,7 @@ def getStoryUpdateInfo(storyID):
     updateInfo.append(sel[0]) ##adds title
     ##latestEditID = sel[2]
 
-    cmd2 = "SELECT * FROM Edits WHERE StoryID = %d ORDER BY EditID DESC;"%(storyID)
+    cmd2 = "SELECT * FROM Edits WHERE StoryID = %d ORDER BY EditID ASC;"%(storyID)
     sel2 = c.execute(cmd2)
     story = ""
     for i in sel2:
