@@ -103,7 +103,7 @@ def settings():
         return redirect(url_for('root'))
     return render_template("settings.html", user = getUserID(), isLoggedIn = 'True')
 
-@app.route('/changePass') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@app.route('/changePass/', methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def changePass():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
@@ -111,7 +111,7 @@ def changePass():
     OGpass = passHash(d["pass"])
     pass1 = d["pass1"]
     pass2 = d["pass2"]
-    if OGPass == storyUtil.getPass(getUserID()) and pass1 == pass2:
+    if OGpass == storyUtil.getPass(getUserID()) and pass1 == pass2:
         storyUtil.changePass(getUserID(), passHash(pass1))
     return redirect(url_for('home'))
     
