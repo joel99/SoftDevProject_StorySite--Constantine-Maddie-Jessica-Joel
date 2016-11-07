@@ -8,7 +8,6 @@ def randStoryID():
     sel = c.execute(cmd).fetchone()#should be maxId, unless this is empty
     maxID = sel[0]
 
-
     randomID = random.randrange(maxID+1)
 
     randomID = random.randrange(maxID) + 1
@@ -67,8 +66,6 @@ def editStory(storyID, userID, content):
     
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-
- 
 
     cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd).fetchone()
