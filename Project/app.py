@@ -55,7 +55,7 @@ def search():
     print query
     ids = storyUtil.getMatchingStoryTitles(query)
     if (len(ids) == 0):
-        return render_template('search.html', isEmpty = True)
+        return render_template('search.html', isEmpty = True, isLoggedIn = str(isLoggedIn()))
     storyUpdates = []
     for i in ids:
         storyUpdates.append(storyUtil.getStoryUpdate(i))
@@ -66,16 +66,12 @@ def search():
 def toolBar():
     d = request.form
     if isLoggedIn():
-        print d.keys()
-        print d.values()
-        print "dtype is " + d["type"]
         if (d["type"] == "Log Out"):
             logout()
             return redirect(url_for('root'))
         if (d["type"] == "Settings"):
             return redirect(url_for('settings'))
         if (d["type"] == "New Story"):
-            print "why"
             return redirect(url_for('createPage'))
     else:
         if (d["type"] == "Log In"):
@@ -84,7 +80,7 @@ def toolBar():
         return redirect(url_for('library'))
     if (d["type"] == "Random"):
         randID = storyUtil.randStoryID()
-        return redirect(url_for('storyPage', storyID = randID, idHash = pageHash(randID)))
+        return redirect(url_for('storyPage', storyID = randID))
     #somehow...    
     return redirect(url_for('home'))
 
@@ -140,12 +136,12 @@ def storyPage(storyID):
 
 
 @app.route('/edit/<storyID>', methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def edit(storyID, userID):
+def edit(storyID):
     d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    storyUtil.editStory(storyID, d["editContent"])
-    return redirect(url_for('home'))
+    storyUtil.editStory(storyID, getUserID(), d["editContent"])
+    return redirect(url_for('storyPage', storyID = storyID))
 
 
 @app.route('/createPage')
