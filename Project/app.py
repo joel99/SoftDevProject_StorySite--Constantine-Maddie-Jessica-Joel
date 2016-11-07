@@ -136,7 +136,17 @@ def storyPage(storyID):
         if ind == getUserID():
             canEdit = False
     story = storyUtil.getFullStory(storyID)
-    return render_template('storyPage.html', storyID = storyID, title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
+    return render_template('storyPage.html', userID = getUserID(), storyID = storyID, title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
+
+
+@app.route('/edit/<storyID>', methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def editStory(storyID, userID):
+    d = request.form
+    if (not isLoggedIn()):
+        return redirect(url_for('root'))
+    storyUtil.editStory(storyID, d["editContent"])
+    return redirect(url_for('home'))
+
 
 @app.route('/createPage')
 def createPage():
@@ -152,9 +162,7 @@ def createStory():
    ## time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     crtStry.addStory(d["title"], session["userID"], d["editContent"])
     return redirect(url_for('home'))
-    # addStory(title:)
-    #return # title, timestamp, usrID, editcontent
-
+    
 
 
 #HELPERS-----------------------------------------------------------------------
