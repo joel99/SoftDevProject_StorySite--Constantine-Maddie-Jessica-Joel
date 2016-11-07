@@ -130,12 +130,12 @@ def library():
 
 @app.route('/library/<storyID>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def storyPage(storyID):
-    editors = getEditors(storyID)
+    editors = storyUtil.getEditors(storyID)
     canEdit = True
     for ind in editors:
-        if ind == getUerID():
+        if ind == getUserID():
             canEdit = False
-    story = getFullStory()
+    story = storyUtil.getFullStory()
     return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 @app.route('/createPage')
