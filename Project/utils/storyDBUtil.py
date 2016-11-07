@@ -43,11 +43,12 @@ def getStoryUpdateInfo(storyID):
     updateInfo.append(sel[0]) ##adds title
     ##latestEditID = sel[2]
 
-    cmd2 = "SELECT * FROM Edits WHERE StoryID = %d ORDER BY EditID ASC;"%(storyID)
+    cmd2 = "SELECT * FROM Edits WHERE StoryID = %d ORDER BY EditID DESC;"%(storyID)
     sel2 = c.execute(cmd2)
     story = ""
     for i in sel2:
         story = story + i[4]
+        break
         
     #print "sel2 is %s"%(sel2,)
     updateInfo.append(story)
@@ -64,9 +65,8 @@ def getStoryUpdateInfo(storyID):
     updateInfo.append(hashlib.md5(str(storyID)).hexdigest())
     updateInfo.append(storyID)
     db.close()
-    print updateInfo
+    #print updateInfo
     return updateInfo
-getStoryUpdateInfo(5)
 
 def editStory(storyID, userID, content):
     
@@ -91,8 +91,8 @@ def editStory(storyID, userID, content):
     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
    # timestamp = "'" + timestamp + "'"
 
-    cmd3 = "INSERT INTO Edits VALUES (%d,'%s',%d,%d,'%s');"%(int(newEditId),timestamp, int(storyID), int(userID), str(content))
-    print cmd3
+    cmd3 = "INSERT INTO Edits VALUES (%d,'%s',%d,%d,'%s');"%(int(newEditId),timestamp, int(storyID), int(userID), content)
+    #print cmd3
     c.execute(cmd3)
 
     cmd4 = "SELECT StoryIDs FROM People WHERE UserID = '%s';"%(userID)

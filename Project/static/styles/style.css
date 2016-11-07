@@ -264,3 +264,7 @@ table {
     border-spacing: 15px;
     border: none;
 }
+
+a {
+    text-decoration: none;
+}

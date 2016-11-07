@@ -9,11 +9,12 @@
       <h1>{{ title }}</h1><br><br>
       <!-- <i>by {{ username }}</i> -->
     </center>
+    {% if canEdit %}
     <p>
       {{ fullStory }}
     </p>
     <br><br>
-    {% if canEdit %}
+
     <center><i>Warning: When adding to a story, do not input symbols such as: " or ' <br>
 	Doing so may break the page.</i>
       <form action= {{ url_for('edit', storyID = storyID) }} method="POST">
@@ -22,6 +23,10 @@
 	<input type="submit" value="Submit Edit">
       </form>
     </center>
+    {% else %}
+    {{fullerStory}}
+    <br><br>
+    <center><i>You have already edited this story.</i></center>
     {% endif %}
   </div>
 </div>
