@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 import sqlite3, hashlib
 from time import gmtime, strftime
-from utils import loginUtil, storyUtil, crtStry
+from utils import loginUtil, storyUtil, crtStry, storyDBUtil
 
 
 app = Flask(__name__)
@@ -140,11 +140,11 @@ def edit(storyID):
     d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    storyUtil.editStory(storyID, getUserID(), d["editContent"])
+    storyDBUtil.editStory(storyID, getUserID(), d["editContent"])
     return redirect(url_for('storyPage', storyID = storyID))
 
 
-@app.route('/createPage')
+@app.route('/createPage') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def createPage():
     if (not isLoggedIn()):
         return redirect(url_for('root'))
