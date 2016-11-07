@@ -7,7 +7,7 @@
   <!--<center><h1>Following</h1></center>-->
   {% if isEmpty %}
   <p> Hey. It looks like you have no stories. Go make some, or browse the library! </p>
-  {% endif %}
+  {% else %}
   <table>
     <th>Following</th>
     {% for story in feedStories %}
@@ -27,5 +27,6 @@
     </tr>
     {% endfor %}
   </table>
+  {% endif %}
 </div>
 {% endblock %}
