@@ -35,7 +35,7 @@ def getStoryTitles(): # returns a list of all story titles in order of most rece
     titles = []
     for record in sel:
         titles.append(record[0])
-    db.close
+    db.close()
     return titles
 
 

@@ -66,11 +66,11 @@ def editStory(storyID, userID, content):
 
  
 
-    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(storyID)
+    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd).fetchone()
     mREID = sel[2] + 1
 
-    cmdExtra = "UPDATE Stories SET mostRecentEditID = %d WHERE StoryID = %d;"%(mREID, storyID)
+    cmdExtra = "UPDATE Stories SET mostRecentEditID = %d WHERE StoryID = %d;"%(int(mREID), int(storyID))
     c.execute(cmdExtra)
 
 
@@ -84,10 +84,10 @@ def editStory(storyID, userID, content):
     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     timestamp = "'" + timestamp + "'"
 
-    cmd3 = "INSERT INTO Edits VALUES (%d,%s,%d,%d,%s);"%(newEditId, timestamp, storyID, userID, content)
+    cmd3 = "INSERT INTO Edits VALUES (%d,'%s',%d,%d,'%s');"%(int(newEditId), str(timestamp), int(storyID), int(userID), str(content))
     c.execute(cmd3)
 
-    cmd4 = "SELECT StoryIDs FROM People WHERE UserID = %s;"%(userID)
+    cmd4 = "SELECT StoryIDs FROM People WHERE UserID = '%s';"%(userID)
     sel3 = c.execute(cmd4).fetchone()
     listOfStoryIds = sel3[0]
 
