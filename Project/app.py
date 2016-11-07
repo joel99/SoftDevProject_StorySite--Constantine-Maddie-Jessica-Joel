@@ -120,27 +120,23 @@ def changePass():
 def library():
     titles = storyUtil.getStoryTitles()
     IDs = storyUtil.getStoryIDs()
-    hashedIDs = []
-    for ID in IDs:
-        hashedIDs.append(pageHash(ID))
     allOfEm = []
     ctr = 0
-    while ctr < 1:
-        allOfEm.append([titles[ctr], hashedIDs[ctr], IDs[ctr]])
+    while ctr < len(titles):
+        allOfEm.append([titles[ctr], IDs[ctr]])
         ctr += 1
-    return render_template("library.html", aTitle = titles[0], anID = IDs[0], aHashedID = hashedIDs[0], isLoggedIn = str(isLoggedIn()), libList = allOfEm)
+    return render_template("library.html", aTitle = titles[0], anID = IDs[0], isLoggedIn = str(isLoggedIn()), libList = allOfEm)
 
 
-@app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def storyPage(storyID, idHash):
+@app.route('/library/<id>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def storyPage(storyID):
     editors = getEditors(storyID)
     canEdit = True
     for ind in editors:
-        if pageHash(ind) == idHash:
+        if ind == getUerID():
             canEdit = False
     story = getFullStory()
-
-    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
+    return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story, id = storyID)
 
 @app.route('/createPage')
 def createPage():
