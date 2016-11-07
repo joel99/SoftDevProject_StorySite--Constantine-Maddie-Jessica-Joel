@@ -64,7 +64,7 @@ def getStoryUpdateInfo(storyID):
 
 def editStory(storyID, userID, content):
     
-    db = sqlite3.connect("../data/DB.db")
+    db = sqlite3.connect("data/DB.db")
     c = db.cursor()
 
     cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(int(storyID))

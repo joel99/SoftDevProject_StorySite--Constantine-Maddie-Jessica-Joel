@@ -82,8 +82,12 @@ def getEditors(storyID):
     c = db.cursor()
     cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd)
-    editors = list(sel)
+    editors=[]
+    for i in sel:
+        editors.append(i[0])
+   
     db.close()
+
     return editors
 
 

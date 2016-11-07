@@ -25,7 +25,7 @@ def addStory(title, userID, editContent):
     addMRE = 1
     addEid = 1
 
-    addTitle = "'"+addTitle+"'"
+    addTitle = '"'+addTitle+'"'
     addTime = "'"+addTime+"'"
     edit="'"+edit+"'"
    
@@ -38,12 +38,13 @@ def addStory(title, userID, editContent):
         break
 
     e = "INSERT INTO Stories VALUES(%s,%d,%d);"%(addTitle, addStoryID,addMRE )
-    print e
+   
 
     c.execute(e)
 
     
     alpha = "INSERT INTO Edits VALUES(%d,%s,%d,%d,%s);"%(addEid, addTime, addStoryID, addUser, edit)
+    print alpha
     c.execute(alpha)
 
     cmd4 = "SELECT StoryIDs FROM People WHERE UserID = %s;"%(userID)
@@ -62,8 +63,8 @@ def addStory(title, userID, editContent):
 
 
 
-'''addStory("First Story", 1, "this is edit1, story1")
-addStory("Second Story", 1, "this is edit1, story2")
+##addStory("Bob's Story", 3, "abcdefghijklmnopqrstuvwxyz")
+'''addStory("Second Story", 1, "this is edit1, story2")
 
 addStory("Third Story", 2, "this is edit1, story3")
 '''
