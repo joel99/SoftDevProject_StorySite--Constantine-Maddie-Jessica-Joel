@@ -21,12 +21,11 @@ def getStoryUpdate(storyID): #gets the edits
 def getStory(storyID): # returns a story with the given story ID
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(storyID)
+    cmd = "SELECT * FROM Stories WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd)
-    db.close()
     for record in sel:
-        return ret[0]
-
+        return record[0]
+    db.close()
 
 def getStoryTitles(): # returns a list of all story titles in order of most recently created
     db = sqlite3.connect("data/DB.db")
@@ -70,8 +69,9 @@ def getFullStory(storyID): # returns a string of the entire story
     cmd = "SELECT EditContent FROM Edits WHERE StoryID = %d;"%(int(storyID))
     sel = c.execute(cmd)
     story = ""
+    # sel = list(sel)
     for record in sel:
-        story += record + " "
+        story += str(record) + " "
     db.close()
     return story
 
