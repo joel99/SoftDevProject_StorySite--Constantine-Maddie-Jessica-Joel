@@ -28,6 +28,7 @@ def addStory(title, userID, editContent):
     addTitle = "'"+addTitle+"'"
     addTime = "'"+addTime+"'"
     edit="'"+edit+"'"
+   
     
     cmd = "SELECT storyID FROM Stories ORDER BY storyID DESC;"
     sel = c.execute(cmd)
@@ -37,6 +38,7 @@ def addStory(title, userID, editContent):
         break
 
     e = "INSERT INTO Stories VALUES(%s,%d,%d);"%(addTitle, addStoryID,addMRE )
+    print e
 
     c.execute(e)
 
