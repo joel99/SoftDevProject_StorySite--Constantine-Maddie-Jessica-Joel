@@ -113,7 +113,7 @@ def changePass():
     pass2 = d["pass2"]
     if OGPass == storyUtil.getPass(getUserID()) and pass1 == pass2:
         storyUtil.changePass(getUserID(), passHash(pass1))
-    return redirect(url_for('settings'))
+    return redirect(url_for('home'))
     
 
 @app.route('/library') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,8 +123,12 @@ def library():
     hashedIDs = []
     for ID in IDs:
         hashedIDs.append(pageHash(ID))
-    allOfEm = [titles, hashedIDs, IDs]
-    return render_template("library.html", isLoggedIn = str(isLoggedIn()), libList = allOfEm)
+    allOfEm = []
+    ctr = 0
+    while ctr < 1:
+        allOfEm.append([titles[ctr], hashedIDs[ctr], IDs[ctr]])
+        ctr += 1
+    return render_template("library.html", aTitle = titles[0], anID = IDs[0], aHashedID = hashedIDs[0], isLoggedIn = str(isLoggedIn()), libList = allOfEm)
 
 
 @app.route('/library/<string:idHash>') #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,6 +139,7 @@ def storyPage(storyID, idHash):
         if pageHash(ind) == idHash:
             canEdit = False
     story = getFullStory()
+
     return render_template('storyPage.html', title = getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 @app.route('/createPage')

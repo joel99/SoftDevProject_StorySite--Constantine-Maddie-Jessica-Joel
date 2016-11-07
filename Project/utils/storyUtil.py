@@ -56,7 +56,7 @@ def getStoryIDs(): # returns a list of all story titles in order of most recentl
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
-    IDs = []
+    IDs = list()
     for record in sel:
         IDs.append(record[1])
     db.close()
@@ -79,9 +79,7 @@ def getEditors(storyID):
     cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(storyID)
     sel = c.execute(cmd)
     db.close()
-    editors = []
-    for record in sel:
-        editors.append(record[0])
+    editors = list(sel)
     return editors
 
 def randStoryID():
@@ -94,12 +92,12 @@ def getPass(userID):
     c = db.cursor()
     cmd = "SELECT HashedPass FROM AccountInfo WHERE UserID = %d;"%(userID)
     sel = c.execute(cmd)
-
-    
-    for record in sel:
-        return record[0]
     db.commit()
     db.close()
+    for record in sel:
+        return record[0]
+    
+
 
 def changePass(userID, newPass):
     db = sqlite3.connect("data/DB.db")
