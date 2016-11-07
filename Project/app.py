@@ -136,7 +136,7 @@ def storyPage(storyID):
         if ind == getUserID():
             canEdit = False
     story = storyUtil.getFullStory(storyID)
-    return render_template('storyPage.html', title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
+    return render_template('storyPage.html', storyID = storyID, title = storyUtil.getStory(storyID), canEdit = canEdit, isLoggedIn = str(isLoggedIn()), fullStory = story)
 
 @app.route('/createPage')
 def createPage():
