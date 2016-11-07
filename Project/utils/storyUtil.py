@@ -94,9 +94,8 @@ def getPass(userID):
     c = db.cursor()
     cmd = "SELECT HashedPass FROM AccountInfo WHERE UserID = %d;"%(userID)
     sel = c.execute(cmd)
-    db.commit()
-    db.close()
     for record in sel:
+        db.close()
         return record[0]
     
 
@@ -104,7 +103,7 @@ def getPass(userID):
 def changePass(userID, newPass):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "UPDATE AccountInfo SET HashedPass = newPass WHERE UserID = %d;"%(userID)
+    cmd = "UPDATE AccountInfo SET HashedPass = '%s'WHERE UserID = %d;"%(newPass, userID)
     sel = c.execute(cmd)
     db.commit()
     db.close()
