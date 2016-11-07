@@ -7,13 +7,11 @@ def randStoryID():
     cmd = "SELECT StoryID FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd).fetchone()#should be maxId, unless this is empty
     maxID = sel[0]
-<<<<<<< HEAD
+
 
     randomID = random.randrange(maxID+1)
- 
-=======
+
     randomID = random.randrange(maxID) + 1
->>>>>>> f1c7ebe74cc6dbbd1350b25a5cbe080f93b1e9ad
     cmd = "SELECT StoryID FROM Stories WHERE StoryID = %d;"%(randomID)
     sel = c.execute(cmd).fetchone()
    
