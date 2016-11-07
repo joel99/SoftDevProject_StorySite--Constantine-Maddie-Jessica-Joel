@@ -5,9 +5,9 @@ def randStoryID():
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT StoryID FROM Stories ORDER BY StoryID DESC;"
-    sel = c.execute(cmd).fetchone()
+    sel = c.execute(cmd).fetchone()#should be maxId, unless this is empty
     maxID = sel[0]
-    randomID = random.randrange(maxID)
+    randomID = random.randrange(maxID) + 1
     cmd = "SELECT StoryID FROM Stories WHERE StoryID = %d;"%(randomID)
     sel = c.execute(cmd).fetchone()
     return sel[0]
