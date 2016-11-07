@@ -3,6 +3,7 @@ import sqlite3, hashlib
 from time import gmtime, strftime
 from utils import loginUtil, storyUtil, crtStry, storyDBUtil
 
+##Everytime i ran app.py, within moments of using the website, i would get an error: [Errno 10054] An existing connection was forcibly closed by the remote host. This. was. frustrating. And i don't know how to fix it.
 
 app = Flask(__name__)
 app.secret_key = "secrets"

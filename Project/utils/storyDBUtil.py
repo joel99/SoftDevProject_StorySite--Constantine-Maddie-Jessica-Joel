@@ -59,8 +59,9 @@ def getStoryUpdateInfo(storyID):
     updateInfo.append(hashlib.md5(str(storyID)).hexdigest())
     updateInfo.append(storyID)
     db.close()
+    print updateInfo
     return updateInfo
-
+getStoryUpdateInfo(5)
 
 def editStory(storyID, userID, content):
     
