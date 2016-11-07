@@ -12,6 +12,8 @@ from time import gmtime, strftime
 ##to test:
 ##x = {"title":"'FirstStory'","timestamp":"'Today'", "userID":1, "editcontent":"'this is edit content.'"}
 
+
+
 def addStory(title, userID, editContent):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
@@ -26,6 +28,7 @@ def addStory(title, userID, editContent):
     addTitle = "'"+addTitle+"'"
     addTime = "'"+addTime+"'"
     edit="'"+edit+"'"
+   
     
     cmd = "SELECT storyID FROM Stories ORDER BY storyID DESC;"
     sel = c.execute(cmd)
@@ -35,6 +38,7 @@ def addStory(title, userID, editContent):
         break
 
     e = "INSERT INTO Stories VALUES(%s,%d,%d);"%(addTitle, addStoryID,addMRE )
+    print e
 
     c.execute(e)
 
@@ -42,7 +46,7 @@ def addStory(title, userID, editContent):
     alpha = "INSERT INTO Edits VALUES(%d,%s,%d,%d,%s);"%(addEid, addTime, addStoryID, addUser, edit)
     c.execute(alpha)
 
-    cmd4 = "SELECT StoryIDs FROM People WHERE UserID = userID;"
+    cmd4 = "SELECT StoryIDs FROM People WHERE UserID = %s;"%(userID)
     sel3 = c.execute(cmd4).fetchone()
     listOfStoryIds = sel3[0]
 
@@ -57,3 +61,9 @@ def addStory(title, userID, editContent):
 
 
 
+
+'''addStory("First Story", 1, "this is edit1, story1")
+addStory("Second Story", 1, "this is edit1, story2")
+
+addStory("Third Story", 2, "this is edit1, story3")
+'''

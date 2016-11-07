@@ -3,7 +3,7 @@ import sqlite3
 ###ONE TIME USE TO CREATE THE DATABASE AND TABLES
 
 
-db = sqlite3.connect("data/DB.db")
+db = sqlite3.connect("../data/DB.db")
 c = db.cursor()
 
 

@@ -52,9 +52,10 @@ def registerAccountInfo(uN, hP):
 
     db.commit()
     db.close()
-
+'''
 registerAccountInfo("User1","Password1")
-
+registerAccountInfo("User2","Password2")
+'''
 def doesUserExist(uN):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()

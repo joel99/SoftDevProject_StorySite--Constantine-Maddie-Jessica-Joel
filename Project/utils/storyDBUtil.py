@@ -12,7 +12,7 @@ def randStoryID():
     sel = c.execute(cmd).fetchone()
     return sel[0]
     db.close()
-randStoryID()
+
     
 def getStoryIDs(userID):
     print "getting story IDs from database"
@@ -86,17 +86,18 @@ def editStory(storyID, userID, content):
     cmd3 = "INSERT INTO Edits VALUES (%d,%s,%d,%d,%s);"%(newEditId, timestamp, storyID, userID, content)
     c.execute(cmd3)
 
-    cmd4 = "SELECT StoryIDs FROM People WHERE UserID = userID;"
+    cmd4 = "SELECT StoryIDs FROM People WHERE UserID = %s;"%(userID)
     sel3 = c.execute(cmd4).fetchone()
     listOfStoryIds = sel3[0]
 
 
-    listOfStoryIds = listOfStoryIds + "X1 "+ str(storyID)
+    listOfStoryIds ="'"+ listOfStoryIds + " "+ str(storyID)+"'"
     cmd4Extra = "UPDATE People Set StoryIDs = %s WHERE UserID = %d;"%(listOfStoryIds, userID)
+    c.execute(cmd4Extra)
 
     
   
     db.commit()
     db.close()
 
-#editStory(1, 1, "'this is the fifth edit content'")
+editStory(1, 2, "'this is the edit 2, story 1'")

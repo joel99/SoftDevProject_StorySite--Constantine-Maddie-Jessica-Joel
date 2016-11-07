@@ -13,7 +13,7 @@ def getStoryIDsForUser(userID):
     return ret
     #return [int(i) for i in storiesString.split()]
 
-getStoryIDsForUser(1)
+
 
 def getStoryUpdate(storyID): #gets the edits 
     return storyDBUtil.getStoryUpdateInfo(storyID)
@@ -27,7 +27,8 @@ def getStory(storyID): # returns a story with the given story ID
     for record in sel:
         return ret[0]
 
-def getStoryTitles(): # returns a list of all story titles in order of most recently edited
+
+def getStoryTitles(): # returns a list of all story titles in order of most recently created
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
@@ -35,8 +36,9 @@ def getStoryTitles(): # returns a list of all story titles in order of most rece
     titles = []
     for record in sel:
         titles.append(record[0])
-    db.close()
+    db.close
     return titles
+
 
 def getMatchingStoryTitles(queryString):
     db = sqlite3.connect("data/DB.db")
@@ -51,7 +53,8 @@ def getMatchingStoryTitles(queryString):
     return matchingStories
     
 
-def getStoryIDs(): # returns a list of all story titles in order of most recently edited
+##CHECK THIS ONE 
+def getStoryIDs(): # returns a list of all story ids in order of most recently created
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
     cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
@@ -61,6 +64,7 @@ def getStoryIDs(): # returns a list of all story titles in order of most recentl
         IDs.append(record[1])
     db.close()
     return IDs
+
 
 def getFullStory(storyID): # returns a string of the entire story
     db = sqlite3.connect("data/DB.db")
