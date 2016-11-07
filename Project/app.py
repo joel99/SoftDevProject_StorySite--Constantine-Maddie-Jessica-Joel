@@ -55,7 +55,7 @@ def search():
     print query
     ids = storyUtil.getMatchingStoryTitles(query)
     if (len(ids) == 0):
-        return render_template('search.html', isEmpty = True)
+        return render_template('search.html', isEmpty = True, isLoggedIn = str(isLoggedIn()))
     storyUpdates = []
     for i in ids:
         storyUpdates.append(storyUtil.getStoryUpdate(i))
