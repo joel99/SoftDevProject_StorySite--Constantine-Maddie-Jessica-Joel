@@ -47,7 +47,7 @@ def getStoryUpdateInfo(storyID):
     sel2 = c.execute(cmd2)
     story = ""
     for i in sel2:
-        story = story + i[4]
+        story = story + i[4] # content
         break
         
     #print "sel2 is %s"%(sel2,)

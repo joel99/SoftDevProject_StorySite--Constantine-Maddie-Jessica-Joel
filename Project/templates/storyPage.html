@@ -24,9 +24,15 @@
       </form>
     </center>
     {% else %}
+    {% if isLoggedIn %}
     {{fullerStory}}
     <br><br>
     <center><i>You have already edited this story.</i></center>
+    {% else %}
+    {{fullStory}}
+    <br><br>
+    <center><i>Log in to view more!</i></center>
+    {% endif %}
     {% endif %}
   </div>
 </div>
