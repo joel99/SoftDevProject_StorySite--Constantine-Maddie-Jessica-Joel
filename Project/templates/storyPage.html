@@ -14,7 +14,7 @@
     </p>
     <br><br>
     {% if canEdit %}
-    <form action= {{ url_for('edit', storyID = storyID, userID = user) }} method="POST">
+    <form action= {{ url_for('edit', storyID = storyID) }} method="POST">
       <textarea rows="4" cols="50" maxlength="250" name="editContent" placeholder="Start writing..." required></textarea>
       <br><br>
       <input type="submit" value="Submit Edit">

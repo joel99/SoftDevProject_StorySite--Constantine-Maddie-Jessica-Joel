@@ -140,12 +140,12 @@ def storyPage(storyID):
 
 
 @app.route('/edit/<storyID>', methods = ['POST']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-def edit(storyID, userID):
+def edit(storyID):
     d = request.form
     if (not isLoggedIn()):
         return redirect(url_for('root'))
-    storyUtil.editStory(storyID, d["editContent"])
-    return redirect(url_for('home'))
+    storyUtil.editStory(storyID, getUserID(), d["editContent"])
+    return redirect(url_for('storyPage', storyID = storyID))
 
 
 @app.route('/createPage')
