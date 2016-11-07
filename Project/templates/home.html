@@ -20,7 +20,7 @@
 	    <br><br>
 	    {{ story[1] }}
 	    <br><br>
-	    To read the full story, click <a href = "url_for('app.storyPage', storyID = {{ story[5] }}, idHash = {{ story[4] }})">here</a>
+	    To read the full story, click <a href = {{url_for('storyPage', storyID =  story[5] )}}>here</a>
 	  </p>
 	</div>
       </td>

@@ -1,0 +1,1 @@
+Random() Functionality will break if database is empty...but that should never be the case!
