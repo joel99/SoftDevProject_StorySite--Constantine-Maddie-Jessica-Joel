@@ -57,11 +57,9 @@ def getMatchingStoryTitles(queryString):
 def getStoryIDs(): # returns a list of all story ids in order of most recently created
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "SELECT * FROM Stories ORDER BY StoryID DESC;"
+    cmd = "SELECT StoryID FROM Stories ORDER BY StoryID DESC;"
     sel = c.execute(cmd)
-    IDs = list()
-    for record in sel:
-        IDs.append(record[1])
+    IDs = list(sel)
     db.close()
     return IDs
 
@@ -80,7 +78,7 @@ def getFullStory(storyID): # returns a string of the entire story
 def getEditors(storyID):
     db = sqlite3.connect("data/DB.db")
     c = db.cursor()
-    cmd = "SELECT UserID FROM Edits WHERE StoryID = %d;"%(storyID)
+    cmd = "SELECT UserID FROM Edits WHERE StoryID = %s;"%(str(storyID))
     sel = c.execute(cmd)
     db.close()
     editors = list(sel)
