@@ -44,18 +44,12 @@ def getStoryUpdateInfo(storyID):
     ##latestEditID = sel[2]
 
     cmd2 = "SELECT * FROM Edits WHERE StoryID = %d ORDER BY EditID DESC;"%(storyID)
-    sel2 = c.execute(cmd2)
-    story = ""
-    for i in sel2:
-        story = story + i[4] # content
-        break
-        
-    #print "sel2 is %s"%(sel2,)
-    updateInfo.append(story)
-    ''' updateInfo.append(latestEdit[4][0]) #for latest edit content
+    sel2 = c.execute(cmd2).fetchone()
+    
+    updateInfo.append(sel2[4])
     # updateInfo.append(latestEdit[1][0]) #for latest edit timestamp
     #userID = latestEdit[3] #pass into user database
-
+    '''
     #print "Selecting userID %d from accountInfo"%(userID)
     cmd3 = "SELECT * FROM AccountInfo WHERE UserID = %d;"%(userID)
     sel3 = c.execute(cmd3).fetchone()
