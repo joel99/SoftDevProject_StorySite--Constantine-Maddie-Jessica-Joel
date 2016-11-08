@@ -30,7 +30,7 @@ def getStoryIDs(userID):
     db.close()
     return sel[1]
 
-#updateInfo Format: story title, story content, url hash, storyID
+#updateInfo Format: story title, story content, timestamp, username, storyID
 def getStoryUpdateInfo(storyID):
     updateInfo = []
     print storyID
@@ -44,19 +44,18 @@ def getStoryUpdateInfo(storyID):
     ##latestEditID = sel[2]
 
     cmd2 = "SELECT * FROM Edits WHERE StoryID = %d ORDER BY EditID DESC;"%(storyID)
-    sel2 = c.execute(cmd2).fetchone()
+    latestEdit = c.execute(cmd2).fetchone()
     
-    updateInfo.append(sel2[4])
-    # updateInfo.append(latestEdit[1][0]) #for latest edit timestamp
-    #userID = latestEdit[3] #pass into user database
-    '''
+    updateInfo.append(latestEdit[4])
+    updateInfo.append(latestEdit[1]) #for latest edit timestamp
+    userID = latestEdit[3] #pass into user database
+    
     #print "Selecting userID %d from accountInfo"%(userID)
     cmd3 = "SELECT * FROM AccountInfo WHERE UserID = %d;"%(userID)
-    sel3 = c.execute(cmd3).fetchone()
-    selUser = sel3
+    selUser = c.execute(cmd3).fetchone()
     
-    updateInfo.append(selUser[0])'''
-    updateInfo.append(hashlib.md5(str(storyID)).hexdigest())
+    updateInfo.append(selUser[0])
+    
     updateInfo.append(storyID)
     db.close()
     #print updateInfo

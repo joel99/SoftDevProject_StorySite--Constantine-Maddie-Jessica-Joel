@@ -48,7 +48,6 @@ def home():
         return render_template('home.html', isLoggedIn = 'True', feedStories = storyUpdates)
  
 #TOOLBAR FUNCTIONS - Joel
-
 #executed by a form
 @app.route('/search/', methods = ['GET']) #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def search():

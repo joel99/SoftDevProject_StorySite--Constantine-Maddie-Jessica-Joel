@@ -12,11 +12,11 @@
   <div id="postbox">
     <h1>{{ story[0] }}</h1>
     <p>
-      Last Updated: {{ story[2] }} <i> by {{ story[3] }} </i>
+      Last updated: {{ story[2] }} <i> by {{ story[3] }} </i>
       <br><br>
       {{ story[1] }}
       <br><br>
-      To read the full story, click <a href = {{ url_for('storyPage', storyID = story[3]) }} >here</a>
+      <i>To read the full story, click <a href = {{ url_for('storyPage', storyID = story[3]) }} >here</a></i>
     </p>
   </div>
   {% endfor %}
